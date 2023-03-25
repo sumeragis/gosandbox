@@ -8,6 +8,7 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/sumeragis/sandbox/backend/interfaces/api/server/handler"
+	"github.com/sumeragis/sandbox/backend/logger"
 )
 
 func main() {
@@ -30,12 +31,12 @@ func run() int {
 		Handler: r,
 	}
 
-	fmt.Println("listen: 8080")
+	logger.Log.Sugar().Info("listen: 8080")
 	if err := server.ListenAndServe(); err != nil {
-		fmt.Println(err)
+		logger.Log.Sugar().Errorf("failed to serve err=%w", err)
 		return 1
 	}
-	fmt.Println("shut down...")
+	logger.Log.Sugar().Info("shut down...")
 
 	return 0
 }
