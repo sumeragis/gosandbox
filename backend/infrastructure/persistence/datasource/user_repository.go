@@ -19,6 +19,10 @@ func NewUserRepository(db *sql.DB) repository.UserRepository {
 }
 
 func (r *userRepository) FindByID(ctx context.Context, id int) (*entity.User, error) {
+	// _, err := r.DB.ExecContext(ctx, "SELECT * FROM user WHERE id = ?", id)
+	// if err != nil {
+	// 	return nil, err
+	// }
 	return &entity.User{ID: id, Name: "Sumeragi"}, nil
 }
 

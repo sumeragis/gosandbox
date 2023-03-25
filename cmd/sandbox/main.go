@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/go-chi/chi"
+	"github.com/sumeragis/sandbox/backend/infrastructure/persistence/datasource"
 	"github.com/sumeragis/sandbox/backend/interfaces/api/server/handler"
 	"github.com/sumeragis/sandbox/backend/logger"
 )
@@ -16,13 +17,19 @@ func main() {
 }
 
 func run() int {
+    db, err := datasource.Connection()
+	if err != nil {
+		logger.Log.Sugar().Errorf("failed to get database connection err=%w", err)
+		return 1
+	}
+
 	r := chi.NewMux()
 	r.Route("/", func(r chi.Router) {
 		h := handler.NewAppHandler()
 		r.Mount("/", h.Router())
     })
 	r.Route("/user", func(r chi.Router) {
-		h := handler.NewUserHandler(nil)
+		h := handler.NewUserHandler(db)
 		r.Mount("/", h.Router())
     })
 

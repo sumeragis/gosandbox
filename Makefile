@@ -1,3 +1,9 @@
+up:
+	docker-compose up -d
+
+stop:
+	docker-compose stop
+
 dev:
 	go run ./cmd/sandbox/main.go 
 
