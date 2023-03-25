@@ -7,6 +7,6 @@ import (
 )
 
 type UserRepository interface {
-    FindByID(ctx context.Context, userID int) (*entity.User, error)
+    FindByID(ctx context.Context, id int) (*entity.User, error)
 	Save(ctx context.Context, entity *entity.User) (*entity.User, error)
 }
