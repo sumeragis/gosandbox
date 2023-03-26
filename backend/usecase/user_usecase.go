@@ -27,6 +27,7 @@ func (u *userUseCase) Get(ctx context.Context, id int) (*entity.User, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	return user, nil
 }
 

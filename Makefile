@@ -1,3 +1,7 @@
+.PHONY: dev
+dev:
+	go run ./cmd/sandbox/main.go 
+
 .PHONY: up
 up:
 	docker-compose up --build -d
@@ -16,11 +20,11 @@ docker-build:
 
 .PHONY: migrate-up
 migrate-up:
-	migrate -database mysql://docker:docker@tcp(localhost:3306)/general -path ./schema/mysql/ddl up
+	migrate -database "mysql://docker:docker@tcp(localhost:3306)/general" -path ./schema/mysql/ddl up
 
-.PHONY: dev
-dev:
-	go run ./cmd/sandbox/main.go 
+.PHONY: seed
+seed:
+	bash ./script/seed_fixture_to_mysql.sh
 
 .PHONY: app-build
 app-build:

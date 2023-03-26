@@ -44,6 +44,10 @@ func (h *userHandler) Get() http.HandlerFunc {
 		}
 
 		user, err := h.useCase.Get(ctx, id)
+		if user == nil {
+			w.WriteHeader(http.StatusNotFound)
+			return
+		}
 
 		res := &GetUserResponse{user}
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
