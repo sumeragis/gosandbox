@@ -2,7 +2,6 @@ package datasource
 
 import (
 	"context"
-	"log"
 
 	"github.com/jmoiron/sqlx"
 	"github.com/sumeragis/sandbox/backend/domain/entity"
@@ -31,7 +30,7 @@ func (r *userRepository) FindByID(ctx context.Context, id int) (*entity.User, er
         var user entity.User
         err := rows.StructScan(&user)
         if err != nil {
-            log.Fatal(err)
+            return nil, err
         }
         results = append(results, user)
     }
