@@ -8,11 +8,9 @@ up:
 
 .PHONY: up-recreate
 up-recreate:
-	docker-compose down -v && make up
-
-.PHONY: stop
-stop:
-	docker-compose stop
+	docker-compose down -v && make up && \
+	bash ./script/wait_for_ping_to_mysql.sh && echo 'wait for db connection stables...' && sleep 10 && \
+	make migrate-up && bash ./script/seed_fixture_to_mysql.sh
 
 .PHONY: docker-build
 docker-build:

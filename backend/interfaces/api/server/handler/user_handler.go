@@ -44,6 +44,12 @@ func (h *userHandler) Get() http.HandlerFunc {
 		}
 
 		user, err := h.useCase.Get(ctx, id)
+		if err != nil {
+			logger.Log.Sugar().Errorf("failed to Get err=%s\n", err.Error())
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+
 		if user == nil {
 			w.WriteHeader(http.StatusNotFound)
 			return

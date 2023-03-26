@@ -2,7 +2,7 @@ package datasource
 
 import (
 	"context"
-	"fmt"
+	"log"
 
 	"github.com/jmoiron/sqlx"
 	"github.com/sumeragis/sandbox/backend/domain/entity"
@@ -20,13 +20,27 @@ func NewUserRepository(db *sqlx.DB) repository.UserRepository {
 }
 
 func (r *userRepository) FindByID(ctx context.Context, id int) (*entity.User, error) {
-	var dest *entity.User
-	if err := r.db.GetContext(ctx, &dest, "SELECT * FROM user WHERE id = ?", id); err != nil {
-		return nil, fmt.Errorf("failed to getContext err=%w", err)
+	rows, err := r.db.Queryx("SELECT * FROM user WHERE id = ?", id)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	results := make([]entity.User, 0)
+    for rows.Next() {
+        var user entity.User
+        err := rows.StructScan(&user)
+        if err != nil {
+            log.Fatal(err)
+        }
+        results = append(results, user)
+    }
+
+	if len(results) < 1 {
+		return nil, nil
 	}
 
-    return dest, nil
-	// return &entity.User{ID: id, Name: "Sumeragi"}, nil
+	return &results[0], nil
 }
 
 func (r *userRepository) Save(ctx context.Context, e *entity.User) (*entity.User, error) {
