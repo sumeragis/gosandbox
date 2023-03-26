@@ -1,24 +1,27 @@
-### Endpoint
+# ENVIRONMENT
+|component|version|
+|---|---|
+|go|1.2|
+|golang-migrate|4.15|
+
+# ENDPOINT
 
 /healthz
 
-/user
-
+/user 
 - GET
 - POST
 
-### Development
-
+# DEVELOPMENT
+Build database
+```
+$ make up
+$ make migrate-up
+```
+Run application server
+```
 $ make dev
+```
 
-### Container
-
-$ make docker-build
-
-$ make docker-run
-
-### TODO
-
-- [ ] implement datasource of infrastructure
-- [ ] logger
+# TODO
 - [ ] lint
