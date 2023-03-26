@@ -2,27 +2,31 @@ package datasource
 
 import (
 	"context"
-	"database/sql"
 
+	"github.com/jmoiron/sqlx"
 	"github.com/sumeragis/sandbox/backend/domain/entity"
 	"github.com/sumeragis/sandbox/backend/domain/repository"
 )
 
 type userRepository struct {
-	DB *sql.DB
+	DB *sqlx.DB
 }
 
-func NewUserRepository(db *sql.DB) repository.UserRepository {
+func NewUserRepository(db *sqlx.DB) repository.UserRepository {
 	return &userRepository{
 		DB: db,
 	}
 }
 
 func (r *userRepository) FindByID(ctx context.Context, id int) (*entity.User, error) {
-	// _, err := r.DB.ExecContext(ctx, "SELECT * FROM user WHERE id = ?", id)
+	// result, err := r.DB.ExecContext(ctx, "SELECT * FROM user WHERE id = ?", id)
 	// if err != nil {
 	// 	return nil, err
 	// }
+
+	
+	
+
 	return &entity.User{ID: id, Name: "Sumeragi"}, nil
 }
 

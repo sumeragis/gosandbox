@@ -2,13 +2,13 @@ package handler
 
 import (
 	"context"
-	"database/sql"
 	"encoding/json"
 	"io"
 	"net/http"
 	"strconv"
 
 	"github.com/go-chi/chi"
+	"github.com/jmoiron/sqlx"
 	"github.com/sumeragis/sandbox/backend/infrastructure/persistence/datasource"
 	"github.com/sumeragis/sandbox/backend/logger"
 	"github.com/sumeragis/sandbox/backend/usecase"
@@ -18,7 +18,7 @@ type userHandler struct {
 	useCase usecase.UserUseCase
 }
 
-func NewUserHandler(db *sql.DB) *userHandler {
+func NewUserHandler(db *sqlx.DB) *userHandler {
 	u := usecase.NewUserUseCase(datasource.NewUserRepository(db))
 	return &userHandler{
 		useCase: u,
