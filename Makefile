@@ -1,21 +1,26 @@
 up:
-	docker-compose up -d
+	docker-compose up --build -d
+
+up-recreate:
+	docker-compose down -v && make up
 
 stop:
 	docker-compose stop
 
+docker-build:
+	docker build -f ./cmd/echo/Dockerfile -t app-echo .
+
+migrate-up:
+	migrate -database mysql://docker:docker@tcp(localhost:3306)/general -path ./schema/mysql/ddl up
+
 dev:
 	go run ./cmd/sandbox/main.go 
 
-docker-build:
+app-build:
 	docker build -f ./cmd/sandbox/Dockerfile -t app-sandbox .
 
-docker-run:
+app-run:
 	docker run -p 127.0.0.1:8080:8080/tcp --name app-sandbox app-sandbox
-
-docker-restart:
-	make docker-build
-	make docker-run
 
 ecr-login:
 	aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/sumeragis-rest
