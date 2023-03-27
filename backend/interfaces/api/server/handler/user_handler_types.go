@@ -9,7 +9,3 @@ type GetUserResponse struct {
 type CreateUserRequest struct {
 	User *entity.User `json:"user"`
 }
-
-type CreateUserResponse struct {
-	User *entity.User `json:"user"`
-}

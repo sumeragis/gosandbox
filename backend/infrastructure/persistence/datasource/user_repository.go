@@ -42,6 +42,10 @@ func (r *userRepository) FindByID(ctx context.Context, id int) (*entity.User, er
 	return &results[0], nil
 }
 
-func (r *userRepository) Save(ctx context.Context, e *entity.User) (*entity.User, error) {
-	return &entity.User{ID: e.ID, Name: e.Name}, nil
+func (r *userRepository) Save(ctx context.Context, e *entity.User) error {
+	_, err := r.db.DB.ExecContext(ctx, "INSERT INTO user(id, name) VALUES (?, ?)", e.ID, e.Name)
+	if  err != nil {
+		return err
+	}
+	return nil
 }

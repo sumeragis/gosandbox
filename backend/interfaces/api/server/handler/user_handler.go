@@ -83,19 +83,10 @@ func (h *userHandler) Create() http.HandlerFunc {
 			return
 		}
 		
-		user, err := h.useCase.Create(ctx, req.User)
-		if err != nil {
+		if err := h.useCase.Create(ctx, req.User); err != nil {
 			logger.Log.Sugar().Errorf("failed to exe request body err=%s\n", err.Error())
 			w.WriteHeader(http.StatusInternalServerError)
 			return 
-		}
-
-		res := &GetUserResponse{user}
-		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-		if err := json.NewEncoder(w).Encode(res); err != nil {
-			logger.Log.Sugar().Errorf("failed to Encode response err=%s\n", err.Error())
-			w.WriteHeader(http.StatusInternalServerError)
-			return
 		}
 	}
 }

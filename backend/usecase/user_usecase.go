@@ -9,7 +9,7 @@ import (
 
 type UserUseCase interface {
 	Get(ctx context.Context, id int) (*entity.User, error)
-	Create(ctx context.Context, entity *entity.User) (*entity.User, error)
+	Create(ctx context.Context, entity *entity.User) error
 }
 
 type userUseCase struct {
@@ -31,10 +31,9 @@ func (u *userUseCase) Get(ctx context.Context, id int) (*entity.User, error) {
 	return user, nil
 }
 
-func (u *userUseCase) Create(ctx context.Context, entity *entity.User) (*entity.User, error) {
-	user, err := u.userRepository.Save(ctx, entity)
-	if err != nil {
-		return nil, err
+func (u *userUseCase) Create(ctx context.Context, entity *entity.User) error {
+	if err := u.userRepository.Save(ctx, entity); err != nil {
+		return err
 	}
-	return user, nil
+	return nil
 }

@@ -38,6 +38,6 @@ ecr-login:
 
 .PHONY: ecr-push
 ecr-push:
-	docker build -f ./build/Dockerfile -t sandbox .
+	docker build -f ./cmd/sandbox/Dockerfile -t sandbox .
 	docker tag sandbox:latest public.ecr.aws/sumeragis-rest/sandbox:latest
 	docker push public.ecr.aws/sumeragis-rest/sandbox:latest
