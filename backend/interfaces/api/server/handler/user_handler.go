@@ -3,7 +3,6 @@ package handler
 import (
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -35,8 +34,10 @@ func (h *userHandler) Router() chi.Router {
 }
 
 
-func errorHandler(err error, w http.ResponseWriter, r *http.Request) {
-	logger.Log.Sugar().Debugf("Application error: %s", err.Error())
+func errorHandler(status int, err error, w http.ResponseWriter) {
+	if err == nil {
+		return
+	}
 
 	if rec := recover(); rec != nil {
 		logger.Log.Sugar().Errorf("panic: %s", err.Error())
@@ -44,54 +45,49 @@ func errorHandler(err error, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	switch  {
-	case errors.Is(err, ERR_BAD_REQUEST):
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	case errors.Is(err, ERR_NOT_FOUND):
-		w.WriteHeader(http.StatusNotFound)
-		return
-	default:
+	logger.Log.Sugar().Debugf("Application error: %s", err.Error())
+
+	switch status {
+	case http.StatusInternalServerError:
 		logger.Log.Sugar().Errorf("Internal Server Error: %s", err.Error())
-		w.WriteHeader(http.StatusInternalServerError)
-		return
 	}
 
+	w.WriteHeader(status)
 }
 
 func (h *userHandler) Get() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		ctx := context.Background()
-
-		var err error
+		var status int
+		var resErr error
 		defer func() {
-			if err != nil {
-				errorHandler(err, w, r)
-				return
-			}
-		}()
+			errorHandler(status, resErr, w)
+		}() 
 
 		id, err := strconv.Atoi(chi.URLParam(r, "id"))
 		if err != nil {
-			err = fmt.Errorf("failed to atoi id err=%w", err)
+			resErr = fmt.Errorf("failed to atoi id err=%w", err)
 			return
 		}
 
 		user, err := h.useCase.Get(ctx, id)
 		if err != nil {
-			err = fmt.Errorf("failed to Get err=%s", err.Error())
+			status = http.StatusInternalServerError
+			resErr = fmt.Errorf("failed to Get err=%s", err.Error())
 			return
 		}
 
 		if user == nil {
-			err = ERR_NOT_FOUND
+			status = http.StatusNotFound
+			resErr = fmt.Errorf("not found user err")
 			return
 		}
 
 		res := &GetUserResponse{user}
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 		if err := json.NewEncoder(w).Encode(res); err != nil {
-			err = fmt.Errorf("failed to Encode response err=%w", err)
+			status = http.StatusInternalServerError
+			resErr = fmt.Errorf("failed to Encode response err=%w", err)
 			return
 		}
 	}
@@ -100,24 +96,29 @@ func (h *userHandler) Get() http.HandlerFunc {
 func (h *userHandler) Create() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		ctx := context.Background()
+		var status int
+		var resErr error
+		defer func() {
+			errorHandler(status, resErr, w)
+		}() 
 
 		payload, err := io.ReadAll(r.Body)
 		if err != nil {
-			logger.Log.Sugar().Errorf("failed to read request body err=%s\n", err.Error())
-			w.WriteHeader(http.StatusBadRequest)
+			status = http.StatusBadRequest
+			resErr = fmt.Errorf("failed to Read request body err=%w", err)
 			return
 		}
 
 		var req CreateUserRequest
 		if err := json.Unmarshal(payload, &req); err != nil {
-			logger.Log.Sugar().Errorf("failed to unmarshal request err=%s\n", err.Error())
-			w.WriteHeader(http.StatusBadRequest)
+			status = http.StatusBadRequest
+			resErr = fmt.Errorf("failed to Unmarshal request err=%w", err)
 			return
 		}
-		
+
 		if err := h.useCase.Create(ctx, req.User); err != nil {
-			logger.Log.Sugar().Errorf("failed to exe request body err=%s\n", err.Error())
-			w.WriteHeader(http.StatusInternalServerError)
+			status = http.StatusInternalServerError
+			resErr = fmt.Errorf("failed to Create err=%w", err)
 			return 
 		}
 	}

@@ -22,7 +22,6 @@ func LogHandlingMiddleware(next http.Handler) http.HandlerFunc {
 		next.ServeHTTP(lrw, req)
 		statusCode := lrw.statusCode
 		logger.Log.Sugar().Debugf("<-- %d %s", statusCode, http.StatusText(statusCode))
-
 	}
 }
 
