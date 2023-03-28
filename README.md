@@ -24,4 +24,7 @@ $ make dev
 ```
 
 # TODO
+- [ ] test
 - [ ] lint
+- [ ] ci
+- [ ] cd
