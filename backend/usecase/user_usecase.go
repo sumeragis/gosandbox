@@ -5,11 +5,14 @@ import (
 
 	"github.com/sumeragis/sandbox/backend/domain/entity"
 	"github.com/sumeragis/sandbox/backend/domain/repository"
+	errorx "github.com/sumeragis/sandbox/backend/errors"
 )
 
 type UserUseCase interface {
 	Get(ctx context.Context, id int) (*entity.User, error)
 	Create(ctx context.Context, entity *entity.User) error
+	Update(ctx context.Context, entity *entity.User) error
+	Delete(ctx context.Context, id int) error
 }
 
 type userUseCase struct {
@@ -33,6 +36,30 @@ func (u *userUseCase) Get(ctx context.Context, id int) (*entity.User, error) {
 
 func (u *userUseCase) Create(ctx context.Context, entity *entity.User) error {
 	if err := u.userRepository.Save(ctx, entity); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *userUseCase) Update(ctx context.Context, entity *entity.User) error {
+	e, err := u.userRepository.FindByID(ctx, entity.ID)
+	if err != nil {
+		return err
+	}
+	if e == nil {
+		return errorx.ERR_NOT_FOUND
+	}
+
+	e.Name = entity.Name
+
+	if err := u.userRepository.Update(ctx, e); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *userUseCase) Delete(ctx context.Context, id int) error {
+	if err := u.userRepository.Delete(ctx, id); err != nil {
 		return err
 	}
 	return nil

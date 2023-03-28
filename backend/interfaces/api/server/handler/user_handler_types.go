@@ -9,3 +9,7 @@ type GetUserResponse struct {
 type CreateUserRequest struct {
 	User *entity.User `json:"user"`
 }
+
+type UpdateUserRequest struct {
+	User *entity.User `json:"user"`
+}

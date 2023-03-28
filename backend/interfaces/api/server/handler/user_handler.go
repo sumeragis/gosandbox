@@ -3,6 +3,7 @@ package handler
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -10,6 +11,7 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/jmoiron/sqlx"
+	errorx "github.com/sumeragis/sandbox/backend/errors"
 	"github.com/sumeragis/sandbox/backend/infrastructure/persistence/datasource"
 	"github.com/sumeragis/sandbox/backend/logger"
 	"github.com/sumeragis/sandbox/backend/usecase"
@@ -30,6 +32,8 @@ func (h *userHandler) Router() chi.Router {
 	r := chi.NewRouter()
 	r.Get("/{id}", middlewareBundle(h.Get()))
 	r.Post("/", middlewareBundle(h.Create()))
+	r.Patch("/", middlewareBundle(h.Update()))
+	r.Delete("/{id}", middlewareBundle(h.Delete()))
 	return r
 }
 
@@ -120,6 +124,73 @@ func (h *userHandler) Create() http.HandlerFunc {
 			status = http.StatusInternalServerError
 			resErr = fmt.Errorf("failed to Create err=%w", err)
 			return 
+		}
+	}
+}
+
+func (h *userHandler) Update() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		ctx := context.Background()
+		var status int
+		var resErr error
+		defer func() {
+			errorHandler(status, resErr, w)
+		}() 
+
+		payload, err := io.ReadAll(r.Body)
+		if err != nil {
+			status = http.StatusBadRequest
+			resErr = fmt.Errorf("failed to Read request body err=%w", err)
+			return
+		}
+
+		var req UpdateUserRequest
+		if err := json.Unmarshal(payload, &req); err != nil {
+			status = http.StatusBadRequest
+			resErr = fmt.Errorf("failed to Unmarshal request err=%w", err)
+			return
+		}
+
+		if err := h.useCase.Update(ctx, req.User); err != nil {
+			if errors.Is(err, errorx.ERR_NOT_FOUND) {
+				status = http.StatusNotFound
+				resErr = err
+				return
+			}
+
+			status = http.StatusInternalServerError
+			resErr = fmt.Errorf("failed to Create err=%w", err)
+			return 
+		}
+	}
+}
+
+
+func (h *userHandler) Delete() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		ctx := context.Background()
+		var status int
+		var resErr error
+		defer func() {
+			errorHandler(status, resErr, w)
+		}() 
+
+		id, err := strconv.Atoi(chi.URLParam(r, "id"))
+		if err != nil {
+			resErr = fmt.Errorf("failed to atoi id err=%w", err)
+			return
+		}
+
+		if err := h.useCase.Delete(ctx, id); err != nil {
+			if errors.Is(err, errorx.ERR_NOT_FOUND) {
+				status = http.StatusNotFound
+				resErr = err
+				return
+			}
+
+			status = http.StatusInternalServerError
+			resErr = fmt.Errorf("failed to Delete err=%s", err.Error())
+			return
 		}
 	}
 }

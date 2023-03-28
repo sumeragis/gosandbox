@@ -49,3 +49,20 @@ func (r *userRepository) Save(ctx context.Context, e *entity.User) error {
 	}
 	return nil
 }
+
+func (r *userRepository) Update(ctx context.Context, e *entity.User) error {
+	_, err := r.db.DB.ExecContext(ctx, "UPDATE user SET name = ? WHERE id = ?", e.Name, e.ID)
+	if  err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *userRepository) Delete(ctx context.Context, id int) error {
+	_, err := r.db.DB.ExecContext(ctx, "DELETE FROM user WHERE id = ?", id)
+	if  err != nil {
+		return err
+	}
+
+	return nil
+}
