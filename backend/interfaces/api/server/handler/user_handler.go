@@ -29,10 +29,11 @@ func NewUserHandler(db *sqlx.DB) *userHandler {
 
 func (h *userHandler) Router() chi.Router {
 	r := chi.NewRouter()
-	r.Get("/{id}", h.Get())
-	r.Post("/", h.Create())
+	r.Get("/{id}", middlewareBundle(h.Get()))
+	r.Post("/", middlewareBundle(h.Create()))
 	return r
 }
+
 
 func errorHandler(err error, w http.ResponseWriter, r *http.Request) {
 	logger.Log.Sugar().Debugf("Application error: %s", err.Error())

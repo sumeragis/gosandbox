@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi"
+	"github.com/sumeragis/sandbox/backend/middleware"
 )
 
 type appHandler struct {}
@@ -27,4 +28,8 @@ func (h *appHandler) Router() chi.Router {
 	r.Get("/healthz", h.Healthz())
 	
 	return r
+}
+
+func middlewareBundle(next http.HandlerFunc) http.HandlerFunc {
+	return middleware.LogHandlingMiddleware(next)
 }
