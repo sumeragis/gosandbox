@@ -32,6 +32,10 @@ func (h *userHandler) Router() chi.Router {
 	return r
 }
 
+// func errorHandler(err error) {
+// 	logger.Log.Sugar().Errorf("Internal Error: %w", err)
+// }
+
 func (h *userHandler) Get() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		ctx := context.Background()

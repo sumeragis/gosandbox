@@ -1,0 +1,9 @@
+EC2_HOST=ec2-3-112-226-211.ap-northeast-1.compute.amazonaws.com
+ENDPOINT=rds-sandbox.ccdeqekxoift.ap-northeast-1.rds.amazonaws.com
+LOCAL_PORT=3336
+
+# login bastion
+ssh -i ~/.ssh/aws/sandbox/keypair-sandbox.pem ec2-user@$EC2_HOST
+
+# port forward to rds
+ssh -i ~/.ssh/aws/sandbox/keypair-sandbox.pem -L 3336:$ENDPOINT:3306 ec2-user@$EC2_HOST -N

@@ -9,7 +9,7 @@ import (
 var Log *zap.Logger
 
 func init() {
-	l, err := zap.NewProduction()
+	l, err := zap.NewDevelopment()
 	if err != nil {
 		log.Panicf("Error: failed to init logger err=%s", err.Error())
 	}
