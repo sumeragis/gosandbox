@@ -1,12 +1,10 @@
 name: deploy cloudformation
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -20,7 +18,7 @@ jobs:
       - name: upload cfn file to s3
         env:
           STACK_NAME: sandbox
-          TEMPLATE_FILE: cfn-sandbox.yml
+          TEMPLATE_FILE: ./infra/cloudformation/cfn-sandbox.yml
           S3_CFN_BUCKET_NAME: ${{ secrets.S3_CFN_BUCKET_NAME }}
         run: |
           aws cloudformation deploy \
