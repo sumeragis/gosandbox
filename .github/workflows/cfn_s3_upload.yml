@@ -1,4 +1,4 @@
-name: CloudFormation S3 Deploy
+name: upload cloudformation to s3
 
 on:
   push:
