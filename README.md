@@ -31,7 +31,8 @@ Run application server
 $ make dev
 ```
 
-# TODO
+# DELIVERY
 
-- [ ] husky, lint
-- [ ] cd
+Kick GitHub Action "ecr-push"
+
+Update ECS task revision on AWS

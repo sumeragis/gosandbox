@@ -5,10 +5,6 @@ COPY ./go.mod ./go.sum ./
 RUN go mod download
 COPY ./  ./
 
-# COPY ../go.mod ../go.sum ./
-# RUN go mod download
-# COPY ../  ./
-
 ARG CGO_ENABLED=0
 ARG GOOS=linux
 ARG GOARCH=amd64
