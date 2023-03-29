@@ -1,30 +1,37 @@
 # ENVIRONMENT
-|component|version|
-|---|---|
-|go|1.2|
-|golang-migrate|4.15|
+
+| component      | version |
+| -------------- | ------- |
+| go             | 1.2     |
+| golang-migrate | 4.15    |
 
 # ENDPOINT
 
 /healthz
 
-/user 
+/user
+
 - GET
 - POST
+- PATCH
+- DELETE
 
 # DEVELOPMENT
-Build database
+
+Run database
+
 ```
 $ make up
 $ make migrate-up
 ```
+
 Run application server
+
 ```
 $ make dev
 ```
 
 # TODO
-- [ ] test
-- [ ] lint
-- [ ] ci
+
+- [ ] husky, lint
 - [ ] cd

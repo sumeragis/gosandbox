@@ -1,7 +1,7 @@
 name: ecr push image
 
 on:
-  workflow_dispatch: 
+  workflow_dispatch:
 jobs:
   push:
     runs-on: ubuntu-latest
@@ -13,14 +13,16 @@ jobs:
 
       - uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-region: ap-northeast-1
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-northeast-1
-          # role-to-assume: "arn:aws:iam::194049872315:role/GitHubActionsSumeragisRole"
+          aws-region: us-east-1
+          # aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          # aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          role-to-assume: "arn:aws:iam::194049872315:role/GitHubActionsSumeragisRole"
 
       - uses: aws-actions/amazon-ecr-login@v1
-        id: login-ecr
+        id: login-ecr-public
+        with:
+          aws-region: us-east-1
+          registry-type: public
 
       - name: build and push
         env:
@@ -29,6 +31,6 @@ jobs:
           APP_NAME: sandbox
           IMAGE_TAG: sandbox:latest
         run: |
-        	docker build -f ./cmd/${{ env.APP_NAME }}/Dockerfile -t ${{ env.APP_NAME }} .
-        	docker tag ${{ env.IMAGE_TAG }} {{ env.REGISTRY }}/{{ env.REPOSITORY }}/${{ env.IMAGE_TAG }}
-        	docker push ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:${{ env.IMAGE_TAG }}
+          docker build -f ./cmd/${{ env.APP_NAME }}/Dockerfile -t ${{ env.APP_NAME }} .
+          docker tag ${{ env.IMAGE_TAG }} ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_TAG }}
+          docker push ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_TAG }}
