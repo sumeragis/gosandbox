@@ -1,7 +1,17 @@
 name: deploy cloudformation
 
 on:
+  # push:
+  #   branches: [main]
   workflow_dispatch:
+    inputs:
+      component:
+        description: cloudformation template
+        default: cfn-sandbox
+        type: choice
+        options:
+          - cfn-sandbox
+          - network
 
 jobs:
   deploy:
@@ -18,7 +28,7 @@ jobs:
       - name: upload cfn file to s3
         env:
           STACK_NAME: sandbox
-          TEMPLATE_FILE: ./infra/cloudformation/cfn-sandbox.yml
+          TEMPLATE_FILE: ./infra/cloudformation/${{ github.event.inputs.component }}.yml
           S3_CFN_BUCKET_NAME: ${{ secrets.S3_CFN_BUCKET_NAME }}
         run: |
           aws cloudformation deploy \
