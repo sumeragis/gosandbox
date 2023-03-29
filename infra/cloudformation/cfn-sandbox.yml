@@ -9,6 +9,7 @@ Parameters:
   EnvName:
     Description: An environment name that is prefixed to resource names
     Type: String
+    Default: dev
 
 Resources:
   VPC:
