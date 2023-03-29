@@ -1,4 +1,4 @@
-Description: VPC Create Sample
+Description: VPC Create Sample version 2
 
 Parameters:
   VpcCIDR:
@@ -20,3 +20,5 @@ Resources:
       Tags:
         - Key: Name
           Value: !Ref EnvName
+        - Key: ev
+          Value: dev
