@@ -1,9 +1,13 @@
 FROM golang:1.20 as builder
 
 WORKDIR /build
-COPY ../go.mod ../go.sum ./
+COPY ./go.mod ./go.sum ./
 RUN go mod download
-COPY ../  ./
+COPY ./  ./
+
+# COPY ../go.mod ../go.sum ./
+# RUN go mod download
+# COPY ../  ./
 
 ARG CGO_ENABLED=0
 ARG GOOS=linux
