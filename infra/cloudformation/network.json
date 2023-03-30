@@ -28,7 +28,7 @@
           "Ref": "VPC"
         },
         "CidrBlock": "10.10.1.0/24",
-        "AvailabilityZoneId": "ap-northeast-1a"
+        "AvailabilityZone": "ap-northeast-1a"
       },
       "Metadata": {
         "AWS::CloudFormation::Designer": {
@@ -43,7 +43,7 @@
           "Ref": "VPC"
         },
         "CidrBlock": "10.10.2.0/24",
-        "AvailabilityZoneId": "ap-northeast-1b"
+        "AvailabilityZone": "ap-northeast-1b"
       },
       "Metadata": {
         "AWS::CloudFormation::Designer": {
