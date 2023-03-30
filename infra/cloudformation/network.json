@@ -25,7 +25,7 @@
       "Type": "AWS::EC2::Subnet",
       "Properties": {
         "VpcId": {
-          "Ref": "VpcCidr"
+          "Ref": "VPC"
         },
         "CidrBlock": "10.10.1.0/24",
         "AvailabilityZoneId": "ap-northeast-1a"
@@ -40,7 +40,7 @@
       "Type": "AWS::EC2::Subnet",
       "Properties": {
         "VpcId": {
-          "Ref": "VpcCidr"
+          "Ref": "VPC"
         },
         "CidrBlock": "10.10.2.0/24",
         "AvailabilityZoneId": "ap-northeast-1b"
@@ -64,7 +64,7 @@
       "Type": "AWS::EC2::RouteTable",
       "Properties": {
         "VpcId": {
-          "Ref": "VpcCidr"
+          "Ref": "VPC"
         }
       },
       "Metadata": {
@@ -102,6 +102,19 @@
       "Metadata": {
         "AWS::CloudFormation::Designer": {
           "id": "c8e345a6-0928-45df-9b7f-5ab0e418e1ef"
+        }
+      }
+    },
+    "SecurityGroup": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VPC"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "5561bfdf-2c8e-41fc-aa07-d598d1649cd3"
         }
       }
     }
@@ -189,7 +202,9 @@
         "z": 2,
         "parent": "e9ed316d-a502-4299-9733-ebfbd36f9646",
         "embeds": [],
+        "isassociatedwith": ["1b82617d-5bf5-478f-93c5-71b1eb377f9c"],
         "iscontainedinside": [
+          "e9ed316d-a502-4299-9733-ebfbd36f9646",
           "e9ed316d-a502-4299-9733-ebfbd36f9646",
           "e9ed316d-a502-4299-9733-ebfbd36f9646",
           "e9ed316d-a502-4299-9733-ebfbd36f9646",
@@ -208,28 +223,6 @@
           "id": "1b82617d-5bf5-478f-93c5-71b1eb377f9c"
         },
         "z": 0
-      },
-      "cca534e7-5208-4ea6-a70b-14cce06253e6": {
-        "source": {
-          "id": "d0c79b6c-f57c-47f7-88d1-d781f1e974ec",
-          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
-          "port": "AWS::RefLink-AWS::EC2::VPNGateway/AWS::EC2::InternetGateway-GatewayId"
-        },
-        "target": {
-          "id": "1b82617d-5bf5-478f-93c5-71b1eb377f9c"
-        },
-        "z": 4
-      },
-      "aca7035f-4e11-4c81-b452-8fcb85ebf108": {
-        "source": {
-          "id": "d0c79b6c-f57c-47f7-88d1-d781f1e974ec",
-          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
-          "port": "AWS::RefLink-AWS::EC2::VPNGateway/AWS::EC2::InternetGateway-GatewayId"
-        },
-        "target": {
-          "id": "1b82617d-5bf5-478f-93c5-71b1eb377f9c"
-        },
-        "z": 4
       }
     }
   }
