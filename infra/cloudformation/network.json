@@ -81,7 +81,8 @@
         },
         "GatewayId": {
           "Ref": "InternetGateway"
-        }
+        },
+        "DestinationCidrBlock": "0.0.0.0/0"
       },
       "Metadata": {
         "AWS::CloudFormation::Designer": {
