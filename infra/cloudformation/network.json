@@ -45,7 +45,8 @@
       "Properties": {
         "VpcId": {
           "Ref": "VpcCidr"
-        }
+        },
+        "AvailabilityZoneId": "ap-northeast-1a"
       },
       "Metadata": {
         "AWS::CloudFormation::Designer": {
