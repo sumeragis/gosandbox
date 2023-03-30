@@ -21,14 +21,14 @@
         }
       }
     },
-    "PublicSubnetA": {
+    "PublicSubnet1": {
       "Type": "AWS::EC2::Subnet",
       "Properties": {
         "VpcId": {
           "Ref": "VPC"
         },
         "CidrBlock": "10.10.1.0/24",
-        "AvailabilityZone": "ap-northeast-1a"
+        "AvailabilityZone": "apne1-az4"
       },
       "Metadata": {
         "AWS::CloudFormation::Designer": {
@@ -36,14 +36,14 @@
         }
       }
     },
-    "PublicSubnetB": {
+    "PublicSubnet2": {
       "Type": "AWS::EC2::Subnet",
       "Properties": {
         "VpcId": {
           "Ref": "VPC"
         },
         "CidrBlock": "10.10.2.0/24",
-        "AvailabilityZone": "ap-northeast-1b"
+        "AvailabilityZone": "apne1-az1"
       },
       "Metadata": {
         "AWS::CloudFormation::Designer": {
@@ -110,7 +110,7 @@
       "Type": "AWS::EC2::SubnetRouteTableAssociation",
       "Properties": {
         "SubnetId": {
-          "Ref": "PublicSubnetA"
+          "Ref": "PublicSubnet1"
         },
         "RouteTableId": {
           "Ref": "RouteTablePublicSubnet"
