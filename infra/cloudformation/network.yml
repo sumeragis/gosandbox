@@ -23,8 +23,8 @@ Resources:
       EnableDnsSupport: "true"
       EnableDnsHostnames: "true"
       Tags:
-        Key: isTemplate
-        Value: "true"
+        - Key: isTemplate
+          Value: "true"
     Metadata:
       "AWS::CloudFormation::Designer":
         id: 84ae89cd-cdd3-4610-ad18-9508eaad4a94

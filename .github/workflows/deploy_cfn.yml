@@ -25,11 +25,10 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
 
-      - name: upload cfn file to s3
+      - name: deploy
         env:
           STACK_NAME: sandbox
           TEMPLATE_FILE: ./infra/cloudformation/${{ github.event.inputs.component }}.yml
-          S3_CFN_BUCKET_NAME: ${{ secrets.S3_CFN_BUCKET_NAME }}
         run: |
           aws cloudformation deploy \
           --stack-name ${STACK_NAME} \
