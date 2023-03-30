@@ -1,30 +1,11 @@
 {
   "Description": "VPC Network",
-  "Parameters": {
-    "VpcCidr": {
-      "Description": "VPC CIDR",
-      "Type": "String",
-      "Default": "10.2.0.0/16",
-      "AllowedValues": [
-        "10.1.0.0/16",
-        "10.2.0.0/16",
-        "10.3.0.0/16",
-        "10.4.0.0/16",
-        "10.5.0.0/16",
-        "10.6.0.0/16",
-        "10.7.0.0/16",
-        "10.8.0.0/16",
-        "10.9.0.0/16"
-      ]
-    }
-  },
+  "Parameters": {},
   "Resources": {
     "VPC": {
       "Type": "AWS::EC2::VPC",
       "Properties": {
-        "CidrBlock": {
-          "Ref": "VpcCidr"
-        },
+        "CidrBlock": "10.10.0.0/16",
         "EnableDnsSupport": "true",
         "EnableDnsHostnames": "true",
         "Tags": [
@@ -40,17 +21,33 @@
         }
       }
     },
-    "PublicSubnet": {
+    "PublicSubnetA": {
       "Type": "AWS::EC2::Subnet",
       "Properties": {
         "VpcId": {
           "Ref": "VpcCidr"
         },
+        "CidrBlock": "10.10.1.0/24",
         "AvailabilityZoneId": "ap-northeast-1a"
       },
       "Metadata": {
         "AWS::CloudFormation::Designer": {
           "id": "cd3ee8a2-4cec-4745-b233-b11fc7154cdd"
+        }
+      }
+    },
+    "PublicSubnetB": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VpcCidr"
+        },
+        "CidrBlock": "10.10.2.0/24",
+        "AvailabilityZoneId": "ap-northeast-1b"
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "d7b8b80e-0790-4c88-8747-2c03593cf731"
         }
       }
     }
@@ -67,7 +64,10 @@
           "y": -100
         },
         "z": 0,
-        "embeds": ["cd3ee8a2-4cec-4745-b233-b11fc7154cdd"]
+        "embeds": [
+          "d7b8b80e-0790-4c88-8747-2c03593cf731",
+          "cd3ee8a2-4cec-4745-b233-b11fc7154cdd"
+        ]
       },
       "cd3ee8a2-4cec-4745-b233-b11fc7154cdd": {
         "size": {
@@ -79,7 +79,21 @@
           "y": -62.786666075356784
         },
         "z": 1,
-        "parent": "84ae89cd-cdd3-4610-ad18-9508eaad4a94"
+        "parent": "84ae89cd-cdd3-4610-ad18-9508eaad4a94",
+        "embeds": []
+      },
+      "d7b8b80e-0790-4c88-8747-2c03593cf731": {
+        "size": {
+          "width": 140,
+          "height": 140
+        },
+        "position": {
+          "x": -100,
+          "y": -60
+        },
+        "z": 1,
+        "parent": "84ae89cd-cdd3-4610-ad18-9508eaad4a94",
+        "embeds": []
       }
     }
   }
