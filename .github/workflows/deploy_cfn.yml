@@ -1,4 +1,4 @@
-name: deploy cloudformation
+name: deploy infra
 
 on:
   # push:
@@ -7,10 +7,9 @@ on:
     inputs:
       component:
         description: cloudformation template
-        default: cfn-sandbox
+        default: network
         type: choice
         options:
-          - cfn-sandbox
           - network
 
 jobs:
@@ -27,7 +26,7 @@ jobs:
 
       - name: deploy
         env:
-          STACK_NAME: sandbox
+          STACK_NAME: sandbox-network
           TEMPLATE_FILE: ./infra/cloudformation/${{ github.event.inputs.component }}.yml
         run: |
           aws cloudformation deploy \

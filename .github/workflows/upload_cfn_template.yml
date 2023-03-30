@@ -1,4 +1,4 @@
-name: upload cloudformation to s3
+name: upload cfn template to s3
 
 on:
   # push:
