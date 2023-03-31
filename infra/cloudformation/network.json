@@ -161,11 +161,27 @@
         }
       }
     },
-    "SubnetRouteTableAssociationPublic": {
+    "SubnetRouteTableAssociationPublicA": {
       "Type": "AWS::EC2::SubnetRouteTableAssociation",
       "Properties": {
         "SubnetId": {
-          "Ref": "PublicSubnet1"
+          "Ref": "PublicSubnetA"
+        },
+        "RouteTableId": {
+          "Ref": "RouteTablePublicSubnet"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "bde9bb29-4f45-4437-a4e1-94531a4fa249"
+        }
+      }
+    },
+    "SubnetRouteTableAssociationPublicC": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "SubnetId": {
+          "Ref": "PublicSubnetC"
         },
         "RouteTableId": {
           "Ref": "RouteTablePublicSubnet"
