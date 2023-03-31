@@ -21,7 +21,7 @@
         }
       }
     },
-    "PublicSubnet1": {
+    "PublicSubnetA": {
       "Type": "AWS::EC2::Subnet",
       "Properties": {
         "VpcId": {
@@ -42,7 +42,7 @@
         }
       }
     },
-    "PublicSubnet2": {
+    "PublicSubnetC": {
       "Type": "AWS::EC2::Subnet",
       "Properties": {
         "VpcId": {
@@ -60,6 +60,48 @@
       "Metadata": {
         "AWS::CloudFormation::Designer": {
           "id": "d7b8b80e-0790-4c88-8747-2c03593cf731"
+        }
+      }
+    },
+    "PrivateSubnetA": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VPC"
+        },
+        "CidrBlock": "10.10.3.0/24",
+        "AvailabilityZoneId": "apne1-az4",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "tPrivateSubnet-1a"
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "8a9266c4-4ea3-411b-856c-95abf8588847"
+        }
+      }
+    },
+    "PrivateSubnetC": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VPC"
+        },
+        "CidrBlock": "10.10.4.0/24",
+        "AvailabilityZoneId": "apne1-az1",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "tPrivateSubnet-1c"
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "8a9266c4-4ea3-411b-856c-95abf8588847"
         }
       }
     },
@@ -144,16 +186,16 @@
           "height": 1020
         },
         "position": {
-          "x": 370,
-          "y": 220
+          "x": 660,
+          "y": 530
         },
         "z": 1,
         "embeds": [
           "1b82617d-5bf5-478f-93c5-71b1eb377f9c",
+          "e9ed316d-a502-4299-9733-ebfbd36f9646",
           "d7b8b80e-0790-4c88-8747-2c03593cf731",
           "cd3ee8a2-4cec-4745-b233-b11fc7154cdd",
-          "e9ed316d-a502-4299-9733-ebfbd36f9646",
-          "bde9bb29-4f45-4437-a4e1-94531a4fa249"
+          "8a9266c4-4ea3-411b-856c-95abf8588847"
         ]
       },
       "cd3ee8a2-4cec-4745-b233-b11fc7154cdd": {
@@ -162,8 +204,8 @@
           "height": 150
         },
         "position": {
-          "x": 460,
-          "y": 250
+          "x": 750,
+          "y": 560
         },
         "z": 2,
         "parent": "84ae89cd-cdd3-4610-ad18-9508eaad4a94",
@@ -175,8 +217,8 @@
           "height": 150
         },
         "position": {
-          "x": 640,
-          "y": 250
+          "x": 930,
+          "y": 560
         },
         "z": 2,
         "parent": "84ae89cd-cdd3-4610-ad18-9508eaad4a94",
@@ -188,8 +230,8 @@
           "height": 60
         },
         "position": {
-          "x": 400,
-          "y": 430
+          "x": 690,
+          "y": 740
         },
         "z": 2,
         "parent": "84ae89cd-cdd3-4610-ad18-9508eaad4a94",
@@ -201,8 +243,8 @@
           "height": 90
         },
         "position": {
-          "x": 610,
-          "y": 490
+          "x": 900,
+          "y": 800
         },
         "z": 2,
         "parent": "84ae89cd-cdd3-4610-ad18-9508eaad4a94",
@@ -214,14 +256,15 @@
           "height": 60
         },
         "position": {
-          "x": 650,
-          "y": 500
+          "x": 940,
+          "y": 810
         },
         "z": 3,
         "parent": "e9ed316d-a502-4299-9733-ebfbd36f9646",
         "embeds": [],
         "isassociatedwith": ["1b82617d-5bf5-478f-93c5-71b1eb377f9c"],
         "iscontainedinside": [
+          "e9ed316d-a502-4299-9733-ebfbd36f9646",
           "e9ed316d-a502-4299-9733-ebfbd36f9646",
           "e9ed316d-a502-4299-9733-ebfbd36f9646",
           "e9ed316d-a502-4299-9733-ebfbd36f9646",
@@ -242,7 +285,7 @@
         "target": {
           "id": "1b82617d-5bf5-478f-93c5-71b1eb377f9c"
         },
-        "z": 0
+        "z": 2
       },
       "bde9bb29-4f45-4437-a4e1-94531a4fa249": {
         "size": {
@@ -252,6 +295,18 @@
         "position": {
           "x": 512.8557490060833,
           "y": 447.4248218940239
+        },
+        "z": 2,
+        "parent": "84ae89cd-cdd3-4610-ad18-9508eaad4a94"
+      },
+      "8a9266c4-4ea3-411b-856c-95abf8588847": {
+        "size": {
+          "width": 140,
+          "height": 140
+        },
+        "position": {
+          "x": 1130.9809043404325,
+          "y": 841.9259098886258
         },
         "z": 2,
         "parent": "84ae89cd-cdd3-4610-ad18-9508eaad4a94"
