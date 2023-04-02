@@ -170,12 +170,19 @@
         "VpcId": {
           "Ref": "VPC"
         },
+        "GroupDescription": "security group for bastion",
         "SecurityGroupIngress": [
           {
             "IpProtocol": "tcp",
             "FromPort": 22,
             "ToPort": 22,
             "CidrIp": "133.200.151.128/32"
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "tSecurityGroupEC2"
           }
         ]
       }
