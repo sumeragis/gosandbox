@@ -5,16 +5,18 @@
       "Type": "String",
       "Default": "133.200.151.128/32"
     },
-    "TemplateBucketName": {
+    "TemplateURL": {
       "Type": "String",
-      "Default": "sumeragis-cloudformation"
+      "Default": "https://sumeragis-cloudformation.s3.ap-northeast-1.amazonaws.com/"
     }
   },
   "Resources": {
     "LowerStack": {
       "Type": "AWS::CloudFormation::Stack",
       "Properties": {
-        "TemplateURL": "https://sumeragis-cloudformation.s3.ap-northeast-1.amazonaws.com/lower_stack.json"
+        "TemplateURL": {
+          "Fn::Join": ["", [{ "Ref": "TemplateURL" }, "lower_stack.json"]]
+        }
       }
     },
     "VPC": {
