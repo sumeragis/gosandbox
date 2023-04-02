@@ -162,6 +162,12 @@
               }
             ]
           }
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "tBastion"
+          }
         ]
       }
     },
