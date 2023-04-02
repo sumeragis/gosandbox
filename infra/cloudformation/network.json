@@ -225,7 +225,12 @@
             }
           }
         ],
-        "Tags": [{ "Name": "tSecurityGroupRDS" }]
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "tSecurityGroupRDS"
+          }
+        ]
       }
     },
     "DBSubnetGroup": {
