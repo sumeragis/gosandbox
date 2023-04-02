@@ -237,6 +237,7 @@
         "AvailabilityZone": "apne1-az4",
         "StorageType": "gp2",
         "MultiAZ": false,
+        "AllocatedStorage": 5,
         "DBSecurityGroups": [{ "Ref": "SecurityGroupRDS" }]
       }
     },
