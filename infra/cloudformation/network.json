@@ -144,11 +144,6 @@
         "ImageId": "ami-02a2700d37baeef8b",
         "KeyName": "keypair-sandbox",
         "InstanceType": "t2.micro",
-        "SecurityGroups": [
-          {
-            "Ref": "SecurityGroupEC2"
-          }
-        ],
         "BlockDeviceMappings": [
           {
             "DeviceName": "/dev/sdc",
@@ -160,7 +155,10 @@
             "SubnetId": {
               "Ref": "PublicSubnetA"
             },
-            "DeviceIndex": 0
+            "DeviceIndex": 0,
+            "GroupSet": {
+              "Ref": "SecurityGroupEC2"
+            }
           }
         ]
       }
