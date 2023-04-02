@@ -15,7 +15,6 @@ on:
 jobs:
   upload:
     runs-on: ubuntu-latest
-    defaults:
 
     steps:
       - uses: actions/checkout@v3
