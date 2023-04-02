@@ -11,6 +11,12 @@
     }
   },
   "Resources": {
+    "LowerStack": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": "https://sumeragis-cloudformation.s3.ap-northeast-1.amazonaws.com/lower_stack.json"
+      }
+    },
     "VPC": {
       "Type": "AWS::EC2::VPC",
       "Properties": {
