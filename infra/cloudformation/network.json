@@ -282,6 +282,7 @@
     "DBSubnetGroup": {
       "Type": "AWS::RDS::DBSubnetGroup",
       "Properties": {
+        "DBSubnetGroupDescription": "RDS SubnetGroup",
         "SubnetIds": [{ "Ref": "PrivateSubnetA" }, { "Ref": "PrivateSubnetC" }]
       },
       "Metadata": {
