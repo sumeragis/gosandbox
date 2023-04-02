@@ -156,9 +156,11 @@
               "Ref": "PublicSubnetA"
             },
             "DeviceIndex": 0,
-            "GroupSet": {
-              "Ref": "SecurityGroupEC2"
-            }
+            "GroupSet": [
+              {
+                "Ref": "SecurityGroupEC2"
+              }
+            ]
           }
         ]
       }
