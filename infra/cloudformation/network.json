@@ -77,11 +77,6 @@
             "Value": "tPrivateSubnet-1a"
           }
         ]
-      },
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "18226d73-f53a-409e-8ae4-ef59736933ff"
-        }
       }
     },
     "PrivateSubnetC": {
@@ -98,11 +93,6 @@
             "Value": "tPrivateSubnet-1c"
           }
         ]
-      },
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "5ed74322-bbe0-4b0a-b1fc-c1244380581f"
-        }
       }
     },
     "InternetGateway": {
@@ -246,7 +236,8 @@
         "Engine": "mysql",
         "DBSubnetGroupName": {
           "Ref": "DBSubnetGroup"
-        }
+        },
+        "AvailabilityZones": ["apne1-az4", "apne1-az1"]
       }
     },
     "RDSDBInstance1": {
