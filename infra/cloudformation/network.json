@@ -248,10 +248,7 @@
       "Properties": {
         "DBSecurityGroups": [
           {
-            "Ref": "MyDbSecurityByEC2SecurityGroup"
-          },
-          {
-            "Ref": "MyDbSecurityByCIDRIPGroup"
+            "Ref": "SecurityGroupRDS"
           }
         ],
         "AllocatedStorage": "5",
