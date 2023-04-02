@@ -226,6 +226,7 @@
     "RDSDBInstance": {
       "Type": "AWS::RDS::DBInstance",
       "Properties": {
+        "DBInstanceIdentifier": "tSandbox",
         "DBSubnetGroupName": {
           "Ref": "DBSubnetGroup"
         },
@@ -237,7 +238,12 @@
         "StorageType": "gp2",
         "MultiAZ": false,
         "AllocatedStorage": 5,
-        "DBSecurityGroups": [{ "Ref": "SecurityGroupRDS" }]
+        "DBSecurityGroups": [
+          {
+            "Ref": "SecurityGroupRDS"
+          }
+        ],
+        "DeletionProtection": true
       }
     },
     "SecurityGroupRDS": {
@@ -273,6 +279,21 @@
         "AWS::CloudFormation::Designer": {
           "id": "3d056959-cd72-4cbf-8036-d399b122be29"
         }
+      }
+    }
+  },
+  "Metadata": {
+    "AWS::CloudFormation::Designer": {
+      "5a988f6d-caa1-49fb-85bb-2ecaa3d9c4f9": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 125.0839069282184,
+          "y": -702.0790567725728
+        },
+        "z": 0
       }
     }
   }
