@@ -243,6 +243,31 @@
         }
       }
     },
+    "RDSCluster": {
+      "Type": "AWS::RDS::DBCluster",
+      "Properties": {
+        "MasterUsername": "admin",
+        "MasterUserPassword": "hkaneko1",
+        "Engine": "mysql",
+        "DBSubnetGroupName": {
+          "Ref": "PrivateSubnetA"
+        }
+      }
+    },
+    "RDSDBInstance1": {
+      "Type": "AWS::RDS::DBInstance",
+      "Properties": {
+        "DBSubnetGroupName": {
+          "Ref": "PrivateSubnetA"
+        },
+        "Engine": "mysql",
+        "DBClusterIdentifier": {
+          "Ref": "RDSCluster"
+        },
+        "PubliclyAccessible": "true",
+        "DBInstanceClass": "db.t2.micro"
+      }
+    },
     "SecurityGroupRDS": {
       "Type": "AWS::RDS::DBSecurityGroup",
       "Properties": {
@@ -258,22 +283,6 @@
           }
         ]
       }
-    },
-    "RDS": {
-      "Type": "AWS::RDS::DBCluster",
-      "Properties": {
-        "DBSecurityGroups": [
-          {
-            "Ref": "SecurityGroupRDS"
-          }
-        ],
-        "AllocatedStorage": "5",
-        "DBInstanceClass": "db.t2.micro",
-        "Engine": "MySQL",
-        "MasterUsername": "admin",
-        "MasterUserPassword": "hkaneko"
-      },
-      "DeletionPolicy": "Retain"
     }
   },
   "Metadata": {
