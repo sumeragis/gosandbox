@@ -12,7 +12,3 @@ ssh -i ~/.ssh/aws/sandbox/keypair-sandbox.pem -L 3336:$ENDPOINT:3306 ec2-user@$E
 curl -i -X POST localhost:8080/user -H "content-type:application/json" -d '{"user":{"id":2, "name": "John"}}'
 curl -i -X PATCH localhost:8080/user -H "content-type:application/json" -d '{"user":{"id":2, "name": "John renamed"}}'
 curl -i -X DELETE localhost:8080/user/2
-
-# cfn
-aws cloudformation delete-stack --stack-name sandbox
-aws cloudformation validate-template --template-body file://network.json
