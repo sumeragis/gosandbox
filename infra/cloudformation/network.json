@@ -243,22 +243,6 @@
         }
       }
     },
-    "RDS": {
-      "Type": "AWS::RDS::DBCluster",
-      "Properties": {
-        "DBSecurityGroups": [
-          {
-            "Ref": "SecurityGroupRDS"
-          }
-        ],
-        "AllocatedStorage": "5",
-        "DBInstanceClass": "db.t2.micro",
-        "Engine": "MySQL",
-        "MasterUsername": "admin",
-        "MasterUserPassword": "hkaneko"
-      },
-      "DeletionPolicy": "Retain"
-    },
     "SecurityGroupRDS": {
       "Type": "AWS::RDS::DBSecurityGroup",
       "Properties": {
@@ -274,6 +258,22 @@
           }
         ]
       }
+    },
+    "RDS": {
+      "Type": "AWS::RDS::DBCluster",
+      "Properties": {
+        "DBSecurityGroups": [
+          {
+            "Ref": "SecurityGroupRDS"
+          }
+        ],
+        "AllocatedStorage": "5",
+        "DBInstanceClass": "db.t2.micro",
+        "Engine": "MySQL",
+        "MasterUsername": "admin",
+        "MasterUserPassword": "hkaneko"
+      },
+      "DeletionPolicy": "Retain"
     }
   },
   "Metadata": {
