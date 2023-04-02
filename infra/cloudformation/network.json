@@ -228,33 +228,19 @@
         ]
       }
     },
-    "RDSCluster": {
-      "Type": "AWS::RDS::DBCluster",
-      "Properties": {
-        "MasterUsername": "admin",
-        "MasterUserPassword": "hkaneko1",
-        "Engine": "mysql",
-        "DBSubnetGroupName": {
-          "Ref": "DBSubnetGroup"
-        },
-        "AvailabilityZones": ["apne1-az4", "apne1-az1"]
-      }
-    },
-    "RDSDBInstance1": {
+    "RDSDBInstance": {
       "Type": "AWS::RDS::DBInstance",
       "Properties": {
         "DBSubnetGroupName": {
           "Ref": "DBSubnetGroup"
         },
         "Engine": "mysql",
-        "DBClusterIdentifier": {
-          "Ref": "RDSCluster"
-        },
         "PubliclyAccessible": "true",
         "DBInstanceClass": "db.t2.micro",
         "AvailabilityZone": "apne1-az4",
         "StorageType": "gp2",
-        "MultiAZ": false
+        "MultiAZ": false,
+        "DBSecurityGroups": [{ "Ref": "SecurityGroupRDS" }]
       }
     },
     "SecurityGroupRDS": {
@@ -277,7 +263,14 @@
       "Type": "AWS::RDS::DBSubnetGroup",
       "Properties": {
         "DBSubnetGroupDescription": "RDS SubnetGroup",
-        "SubnetIds": [{ "Ref": "PrivateSubnetA" }, { "Ref": "PrivateSubnetC" }]
+        "SubnetIds": [
+          {
+            "Ref": "PrivateSubnetA"
+          },
+          {
+            "Ref": "PrivateSubnetC"
+          }
+        ]
       },
       "Metadata": {
         "AWS::CloudFormation::Designer": {
