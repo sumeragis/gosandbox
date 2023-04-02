@@ -141,15 +141,7 @@
     "Ec2Bastion": {
       "Type": "AWS::EC2::Instance",
       "Properties": {
-        "ImageId": {
-          "Fn::FindInMap": [
-            "AWSRegionArch2AMI",
-            {
-              "Ref": "AWS::Region"
-            },
-            "PV64"
-          ]
-        },
+        "ImageId": "ami-02a2700d37baeef8b",
         "KeyName": "keypair-sandbox",
         "InstanceType": "t2.micro",
         "SecurityGroups": [
