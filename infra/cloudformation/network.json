@@ -152,6 +152,7 @@
         ],
         "NetworkInterfaces": [
           {
+            "AssociatePublicIpAddress": "true",
             "SubnetId": {
               "Ref": "PublicSubnetA"
             },
