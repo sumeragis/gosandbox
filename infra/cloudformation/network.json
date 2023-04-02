@@ -14,11 +14,6 @@
             "Value": "tVPC"
           }
         ]
-      },
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "05fb6c47-8925-4159-9913-d91c5f54d730"
-        }
       }
     },
     "PublicSubnetA": {
@@ -235,6 +230,8 @@
           "Ref": "DBSubnetGroup"
         },
         "Engine": "mysql",
+        "MasterUsername": "admin",
+        "MasterUserPassword": "hkaneko1",
         "PubliclyAccessible": "true",
         "DBInstanceClass": "db.t2.micro",
         "AvailabilityZone": "apne1-az4",
