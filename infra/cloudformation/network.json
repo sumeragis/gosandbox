@@ -30,11 +30,6 @@
             "Value": "tPublicSubnet-1a"
           }
         ]
-      },
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "9f56f976-d395-47d3-beba-0dac764f9fac"
-        }
       }
     },
     "PublicSubnetC": {
@@ -51,11 +46,6 @@
             "Value": "tPublicSubnet-1c"
           }
         ]
-      },
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "abfa030e-ef25-4ffc-88f0-5602706bd049"
-        }
       }
     },
     "PrivateSubnetA": {
@@ -92,23 +82,13 @@
     },
     "InternetGateway": {
       "Type": "AWS::EC2::InternetGateway",
-      "Properties": {},
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "6ef4ec50-3e7b-442a-9d4f-16e17b6c3308"
-        }
-      }
+      "Properties": {}
     },
     "RouteTablePublicSubnet": {
       "Type": "AWS::EC2::RouteTable",
       "Properties": {
         "VpcId": {
           "Ref": "VPC"
-        }
-      },
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "60cb7953-ebab-486e-9217-9ef6468f0440"
         }
       }
     },
@@ -123,12 +103,7 @@
         },
         "DestinationCidrBlock": "0.0.0.0/0"
       },
-      "DependsOn": ["VPC"],
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "e32977f7-5f79-4cde-8550-24c4229796e1"
-        }
-      }
+      "DependsOn": ["VPC"]
     },
     "VPCGatewayAttachment": {
       "Type": "AWS::EC2::VPCGatewayAttachment",
@@ -138,11 +113,6 @@
         },
         "InternetGatewayId": {
           "Ref": "InternetGateway"
-        }
-      },
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "5c69b2dd-3575-4d13-a455-5d2ccd89f0ad"
         }
       }
     },
@@ -193,11 +163,6 @@
             ]
           }
         ]
-      },
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "94c6cc72-a3a4-4a5c-95d5-179bd9e83f51"
-        }
       }
     },
     "SecurityGroupEC2": {
@@ -259,7 +224,8 @@
               "Ref": "SecurityGroupEC2"
             }
           }
-        ]
+        ],
+        "Tags": [{ "Name": "tSecurityGroupRDS" }]
       }
     },
     "DBSubnetGroup": {
@@ -274,26 +240,6 @@
             "Ref": "PrivateSubnetC"
           }
         ]
-      },
-      "Metadata": {
-        "AWS::CloudFormation::Designer": {
-          "id": "3d056959-cd72-4cbf-8036-d399b122be29"
-        }
-      }
-    }
-  },
-  "Metadata": {
-    "AWS::CloudFormation::Designer": {
-      "5a988f6d-caa1-49fb-85bb-2ecaa3d9c4f9": {
-        "size": {
-          "width": 60,
-          "height": 60
-        },
-        "position": {
-          "x": 125.0839069282184,
-          "y": -702.0790567725728
-        },
-        "z": 0
       }
     }
   }
