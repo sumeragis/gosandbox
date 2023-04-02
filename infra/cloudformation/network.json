@@ -1,6 +1,11 @@
 {
   "Description": "VPC Network",
-  "Parameters": {},
+  "Parameters": {
+    "RDSUserName": {
+      "Type": "String",
+      "Default": "admin1"
+    }
+  },
   "Resources": {
     "VPC": {
       "Type": "AWS::EC2::VPC",
@@ -202,7 +207,7 @@
           "Ref": "DBSubnetGroup"
         },
         "Engine": "mysql",
-        "MasterUsername": "admin",
+        "MasterUsername": { "Ref": "RDSUserName" },
         "MasterUserPassword": "hkaneko1",
         "PubliclyAccessible": "true",
         "DBInstanceClass": "db.t2.micro",
