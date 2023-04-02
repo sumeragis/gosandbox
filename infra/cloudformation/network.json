@@ -4,6 +4,10 @@
     "MyIP": {
       "Type": "String",
       "Default": "133.200.151.128/32"
+    },
+    "TemplateBucketName": {
+      "Type": "String",
+      "Default": "sumeragis-cloudformation"
     }
   },
   "Resources": {
