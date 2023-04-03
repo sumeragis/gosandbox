@@ -30,9 +30,3 @@ Run application server
 ```
 $ make dev
 ```
-
-# DELIVERY
-
-Kick GitHub Action "ecr-push"
-
-Update ECS task revision on AWS

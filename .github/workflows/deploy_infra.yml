@@ -10,7 +10,6 @@ on:
         default: main
         type: choice
         options:
-          - network
           - main
 
 jobs:
@@ -45,7 +44,7 @@ jobs:
 
       - name: deploy
         env:
-          STACK_NAME: sandbox-network
+          STACK_NAME: tsandbox
           # TEMPLATE_FILE: ./infra/cloudformation/${{ github.event.inputs.component }}.json
           TEMPLATE_FILE: ./infra/cloudformation/main.json
         run: |
