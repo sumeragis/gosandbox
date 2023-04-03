@@ -35,7 +35,7 @@
         "DBSecurityGroupIngress": [
           {
             "EC2SecurityGroupId": {
-              "Fn::ImportValue": "SecurityGroupEC2Bastion"
+              "Fn::ImportValue": "SecurityGroupEC2"
             }
           }
         ],
