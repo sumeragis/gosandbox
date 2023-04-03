@@ -6,6 +6,16 @@
       "Default": "133.200.151.128/32"
     }
   },
+  "Outputs": {
+    "VPC": {
+      "Description": "VPC",
+      "Value": { "Ref": "VPC" }
+    },
+    "SecurityGroupEC2Bastion": {
+      "Description": "SecurityGroup Bastion",
+      "Value": { "Ref": "SecurityGroupEC2" }
+    }
+  },
   "Resources": {
     "VPC": {
       "Type": "AWS::EC2::VPC",
@@ -198,12 +208,6 @@
           }
         ]
       }
-    }
-  },
-  "Outputs": {
-    "SecurityGroupEC2Bastion": {
-      "Description": "SecurityGroup Bastion",
-      "Value": { "Ref": "SecurityGroupEC2" }
     }
   }
 }
