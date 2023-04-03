@@ -1,0 +1,65 @@
+{
+  "Description": "Database",
+  "Parameters": {},
+  "Resources": {
+    "RDSDBInstance": {
+      "Type": "AWS::RDS::DBInstance",
+      "Properties": {
+        "DBInstanceIdentifier": "tSandbox",
+        "DBSubnetGroupName": {
+          "Ref": "DBSubnetGroup"
+        },
+        "Engine": "mysql",
+        "MasterUsername": "admin",
+        "MasterUserPassword": "hkaneko1",
+        "PubliclyAccessible": "true",
+        "DBInstanceClass": "db.t2.micro",
+        "StorageType": "gp2",
+        "MultiAZ": false,
+        "AllocatedStorage": 5,
+        "DBSecurityGroups": [
+          {
+            "Ref": "SecurityGroupRDS"
+          }
+        ],
+        "DeletionProtection": true
+      }
+    },
+    "SecurityGroupRDS": {
+      "Type": "AWS::RDS::DBSecurityGroup",
+      "Properties": {
+        "GroupDescription": "SecurityGroup RDS",
+        "EC2VpcId": {
+          "Ref": "VPC"
+        },
+        "DBSecurityGroupIngress": [
+          {
+            "EC2SecurityGroupId": {
+              "Ref": "SecurityGroupEC2"
+            }
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "tSecurityGroupRDS"
+          }
+        ]
+      }
+    },
+    "DBSubnetGroup": {
+      "Type": "AWS::RDS::DBSubnetGroup",
+      "Properties": {
+        "DBSubnetGroupDescription": "RDS SubnetGroup",
+        "SubnetIds": [
+          {
+            "Ref": "PrivateSubnetA"
+          },
+          {
+            "Ref": "PrivateSubnetC"
+          }
+        ]
+      }
+    }
+  }
+}
