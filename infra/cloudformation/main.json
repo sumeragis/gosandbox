@@ -1,5 +1,5 @@
 {
-  "Description": "Sansbox Stack",
+  "Description": "Sandbox Stack",
   "Parameters": {
     "TemplateURL": {
       "Type": "String",
