@@ -21,7 +21,8 @@
         "TemplateURL": {
           "Fn::Join": ["", [{ "Ref": "TemplateURL" }, "database.json"]]
         }
-      }
+      },
+      "DependsOn": "Network"
     }
   }
 }
