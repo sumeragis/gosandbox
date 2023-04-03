@@ -30,12 +30,12 @@
       "Properties": {
         "GroupDescription": "SecurityGroup RDS",
         "EC2VpcId": {
-          "Ref": "VPC"
+          "Fn::ImportValue": "VPC"
         },
         "DBSecurityGroupIngress": [
           {
             "EC2SecurityGroupId": {
-              "Ref": "SecurityGroupEC2Bastion"
+              "Fn::ImportValue": "SecurityGroupEC2Bastion"
             }
           }
         ],
@@ -53,10 +53,10 @@
         "DBSubnetGroupDescription": "RDS SubnetGroup",
         "SubnetIds": [
           {
-            "Ref": "PrivateSubnetA"
+            "Fn::ImportValue": "PrivateSubnetA"
           },
           {
-            "Ref": "PrivateSubnetC"
+            "Fn::ImportValue": "PrivateSubnetC"
           }
         ]
       }

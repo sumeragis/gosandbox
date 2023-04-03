@@ -9,19 +9,31 @@
   "Outputs": {
     "VPC": {
       "Description": "VPC",
-      "Value": { "Ref": "VPC" }
+      "Value": { "Ref": "VPC" },
+      "Export": {
+        "Name": { "Ref": "VPC" }
+      }
     },
     "SecurityGroupEC2Bastion": {
       "Description": "SecurityGroup Bastion",
-      "Value": { "Ref": "SecurityGroupEC2" }
+      "Value": { "Ref": "SecurityGroupEC2" },
+      "Export": {
+        "Name": { "Ref": "SecurityGroupEC2" }
+      }
     },
     "PrivateSubnetA": {
       "Description": "PrivateSubnetA",
-      "Value": { "Ref": "PrivateSubnetA" }
+      "Value": { "Ref": "PrivateSubnetA" },
+      "Export": {
+        "Name": { "Ref": "PrivateSubnetA" }
+      }
     },
     "PrivateSubnetC": {
       "Description": "PrivateSubnetC",
-      "Value": { "Ref": "PrivateSubnetC" }
+      "Value": { "Ref": "PrivateSubnetC" },
+      "Export": {
+        "Name": { "Ref": "PrivateSubnetC" }
+      }
     }
   },
   "Resources": {
