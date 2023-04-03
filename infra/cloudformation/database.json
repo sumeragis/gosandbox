@@ -35,7 +35,7 @@
         "DBSecurityGroupIngress": [
           {
             "EC2SecurityGroupId": {
-              "Ref": "SecurityGroupEC2"
+              "Ref": "SecurityGroupEC2Bastion"
             }
           }
         ],

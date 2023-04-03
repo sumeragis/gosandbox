@@ -7,8 +7,8 @@
     }
   },
   "Outputs": {
-    "SecurityGroupEC2": {
-      "Description": "The DNSName of the backup load balancer",
+    "SecurityGroupEC2Bastion": {
+      "Description": "SecurityGroup Bastion",
       "Value": { "Ref": "SecurityGroupEC2" }
     }
   },
