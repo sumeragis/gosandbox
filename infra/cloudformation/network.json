@@ -14,6 +14,14 @@
     "SecurityGroupEC2Bastion": {
       "Description": "SecurityGroup Bastion",
       "Value": { "Ref": "SecurityGroupEC2" }
+    },
+    "PrivateSubnetA": {
+      "Description": "PrivateSubnetA",
+      "Value": { "Ref": "PrivateSubnetA" }
+    },
+    "PrivateSubnetC": {
+      "Description": "PrivateSubnetC",
+      "Value": { "Ref": "PrivateSubnetC" }
     }
   },
   "Resources": {
