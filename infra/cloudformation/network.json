@@ -1,6 +1,11 @@
 {
   "Description": "VPC Network",
-  "Parameters": {},
+  "Parameters": {
+    "MyIP": {
+      "Type": "String",
+      "Default": "133.200.151.128/32"
+    }
+  },
   "Resources": {
     "VPC": {
       "Type": "AWS::EC2::VPC",
