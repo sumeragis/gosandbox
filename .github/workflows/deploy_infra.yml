@@ -4,14 +4,6 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
-    inputs:
-      component:
-        description: cloudformation template
-        default: main
-        type: choice
-        options:
-          - main
-
 jobs:
   upload:
     runs-on: ubuntu-latest
@@ -45,7 +37,6 @@ jobs:
       - name: deploy
         env:
           STACK_NAME: tsandbox
-          # TEMPLATE_FILE: ./infra/cloudformation/${{ github.event.inputs.component }}.json
           TEMPLATE_FILE: ./infra/cloudformation/main.json
         run: |
           aws cloudformation deploy \

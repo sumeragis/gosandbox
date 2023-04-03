@@ -14,14 +14,6 @@
           "Fn::Join": ["", [{ "Ref": "TemplateURL" }, "network.json"]]
         }
       }
-    },
-    "LowerStack": {
-      "Type": "AWS::CloudFormation::Stack",
-      "Properties": {
-        "TemplateURL": {
-          "Fn::Join": ["", [{ "Ref": "TemplateURL" }, "lower_stack.json"]]
-        }
-      }
     }
   }
 }
