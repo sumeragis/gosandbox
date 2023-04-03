@@ -14,6 +14,14 @@
           "Fn::Join": ["", [{ "Ref": "TemplateURL" }, "network.json"]]
         }
       }
+    },
+    "Database": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": {
+          "Fn::Join": ["", [{ "Ref": "TemplateURL" }, "database.json"]]
+        }
+      }
     }
   }
 }
