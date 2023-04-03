@@ -1,24 +1,7 @@
 {
   "Description": "VPC Network",
-  "Parameters": {
-    "MyIP": {
-      "Type": "String",
-      "Default": "133.200.151.128/32"
-    },
-    "TemplateURL": {
-      "Type": "String",
-      "Default": "https://sumeragis-cloudformation.s3.ap-northeast-1.amazonaws.com/"
-    }
-  },
+  "Parameters": {},
   "Resources": {
-    "LowerStack": {
-      "Type": "AWS::CloudFormation::Stack",
-      "Properties": {
-        "TemplateURL": {
-          "Fn::Join": ["", [{ "Ref": "TemplateURL" }, "lower_stack.json"]]
-        }
-      }
-    },
     "VPC": {
       "Type": "AWS::EC2::VPC",
       "Properties": {
