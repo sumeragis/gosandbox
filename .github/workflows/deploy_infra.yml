@@ -45,8 +45,8 @@ jobs:
       - name: deploy
         env:
           STACK_NAME: sandbox-network
-          TEMPLATE_FILE: ./infra/cloudformation/${{ github.event.inputs.component }}.json
-          # TEMPLATE_FILE: ./infra/cloudformation/network.json
+          # TEMPLATE_FILE: ./infra/cloudformation/${{ github.event.inputs.component }}.json
+          TEMPLATE_FILE: ./infra/cloudformation/network.json
         run: |
           aws cloudformation deploy \
           --stack-name ${STACK_NAME} \
