@@ -14,6 +14,20 @@
         "Name": "VPC"
       }
     },
+    "PublicSubnetA": {
+      "Description": "PublicSubnetA",
+      "Value": { "Ref": "PublicSubnetA" },
+      "Export": {
+        "Name": "PublicSubnetA"
+      }
+    },
+    "PublicSubnetC": {
+      "Description": "PublicSubnetC",
+      "Value": { "Ref": "PublicSubnetC" },
+      "Export": {
+        "Name": "PublicSubnetC"
+      }
+    },
     "PrivateSubnetA": {
       "Description": "PrivateSubnetA",
       "Value": { "Ref": "PrivateSubnetA" },
