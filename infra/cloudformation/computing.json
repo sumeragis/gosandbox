@@ -1,20 +1,7 @@
 {
   "Description": "Computing",
-  "Parameters": {
-    "MyIP": {
-      "Type": "String",
-      "Default": "133.200.151.128/32"
-    }
-  },
-  "Outputs": {
-    "SecurityGroupEC2": {
-      "Description": "SecurityGroup Bastion",
-      "Value": { "Ref": "SecurityGroupEC2" },
-      "Export": {
-        "Name": "SecurityGroupEC2"
-      }
-    }
-  },
+  "Parameters": {},
+  "Outputs": {},
   "Resources": {
     "Ec2Bastion": {
       "Type": "AWS::EC2::Instance",
@@ -45,29 +32,6 @@
           {
             "Key": "Name",
             "Value": "tBastion"
-          }
-        ]
-      }
-    },
-    "SecurityGroupEC2": {
-      "Type": "AWS::EC2::SecurityGroup",
-      "Properties": {
-        "VpcId": {
-          "Fn::ImportValue": "VPC"
-        },
-        "GroupDescription": "security group for bastion",
-        "SecurityGroupIngress": [
-          {
-            "IpProtocol": "tcp",
-            "FromPort": 22,
-            "ToPort": 22,
-            "CidrIp": { "Fn::ImportValue": "MyIP" }
-          }
-        ],
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "tSecurityGroupEC2"
           }
         ]
       }

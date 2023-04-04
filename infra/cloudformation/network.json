@@ -1,6 +1,11 @@
 {
   "Description": "Network",
-  "Parameters": {},
+  "Parameters": {
+    "MyIP": {
+      "Type": "String",
+      "Default": "133.200.151.128/32"
+    }
+  },
   "Outputs": {
     "VPC": {
       "Description": "VPC",
@@ -35,6 +40,13 @@
       "Value": { "Ref": "PrivateSubnetC" },
       "Export": {
         "Name": "PrivateSubnetC"
+      }
+    },
+    "SecurityGroupEC2": {
+      "Description": "SecurityGroup Bastion",
+      "Value": { "Ref": "SecurityGroupEC2" },
+      "Export": {
+        "Name": "SecurityGroupEC2"
       }
     }
   },
@@ -186,6 +198,29 @@
           {
             "Key": "Name",
             "Value": "tALB"
+          }
+        ]
+      }
+    },
+    "SecurityGroupEC2": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VPC"
+        },
+        "GroupDescription": "security group for bastion",
+        "SecurityGroupIngress": [
+          {
+            "IpProtocol": "tcp",
+            "FromPort": 22,
+            "ToPort": 22,
+            "CidrIp": { "Fn::ImportValue": "MyIP" }
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "tSecurityGroupEC2"
           }
         ]
       }
