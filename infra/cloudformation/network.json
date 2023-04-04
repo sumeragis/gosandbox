@@ -214,7 +214,7 @@
             "IpProtocol": "tcp",
             "FromPort": 22,
             "ToPort": 22,
-            "CidrIp": { "Fn::ImportValue": "MyIP" }
+            "CidrIp": { "Ref": "MyIP" }
           }
         ],
         "Tags": [
