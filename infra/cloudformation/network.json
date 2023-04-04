@@ -228,6 +228,21 @@
           }
         ]
       }
+    },
+    "LoadBalancer": {
+      "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+      "Properties": {
+        "Name": "tLoadBalancer",
+        "Scheme": "internal",
+        "SecurityGroups": [],
+        "Subnets": [{ "Ref": "PublicSubnetA" }, { "Ref": "PublicSubnetC" }],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "tSecurityGroupEC2"
+          }
+        ]
+      }
     }
   }
 }
