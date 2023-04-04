@@ -229,7 +229,7 @@
         ]
       }
     },
-    "LoadBalancer": {
+    "ALB": {
       "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
       "Properties": {
         "Name": "tLoadBalancer",
@@ -239,7 +239,7 @@
         "Tags": [
           {
             "Key": "Name",
-            "Value": "tSecurityGroupEC2"
+            "Value": "tALB"
           }
         ]
       }
