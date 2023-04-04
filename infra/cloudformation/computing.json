@@ -26,7 +26,7 @@
         "NetworkInterfaces": [
           {
             "SubnetId": {
-              "Ref": "PublicSubnetA"
+              "Fn::ImportValue": "PublicSubnetA"
             },
             "DeviceIndex": 0,
             "GroupSet": [
@@ -48,7 +48,7 @@
       "Type": "AWS::EC2::SecurityGroup",
       "Properties": {
         "VpcId": {
-          "Ref": "VPC"
+          "Fn::ImportValue": "VPC"
         },
         "GroupDescription": "security group for bastion",
         "SecurityGroupIngress": [
@@ -56,7 +56,7 @@
             "IpProtocol": "tcp",
             "FromPort": 22,
             "ToPort": 22,
-            "CidrIp": { "Ref": "MyIP" }
+            "CidrIp": { "Fn::ImportValue": "VPC" }
           }
         ],
         "Tags": [
@@ -65,6 +65,19 @@
             "Value": "tSecurityGroupEC2"
           }
         ]
+      }
+    },
+    "SceduleEC2Stop": {
+      "Type": "AWS::Scheduler::Schedule",
+      "Properties": {
+        "Description": "",
+        "FlexibleTimeWindow": { "Mode": "OFF" },
+        "Name": "tStopEC2Bastion",
+        "ScheduleExpression": "0 0 0 * ? *",
+        "Target": {
+          "Arn": { "Ref": "Ec2Bastion" },
+          "RoleArn": "arn:aws:iam::194049872315:role/EventScheduler-EC2StopRole"
+        }
       }
     }
   }
