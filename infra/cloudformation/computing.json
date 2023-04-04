@@ -1,6 +1,11 @@
 {
   "Description": "Computing",
-  "Parameters": {},
+  "Parameters": {
+    "MyIP": {
+      "Type": "String",
+      "Default": "133.200.151.128/32"
+    }
+  },
   "Outputs": {
     "SecurityGroupEC2": {
       "Description": "SecurityGroup Bastion",
@@ -56,7 +61,7 @@
             "IpProtocol": "tcp",
             "FromPort": 22,
             "ToPort": 22,
-            "CidrIp": { "Fn::ImportValue": "VPC" }
+            "CidrIp": { "Fn::ImportValue": "MyIP" }
           }
         ],
         "Tags": [

@@ -1,11 +1,6 @@
 {
   "Description": "Network",
-  "Parameters": {
-    "MyIP": {
-      "Type": "String",
-      "Default": "133.200.151.128/32"
-    }
-  },
+  "Parameters": {},
   "Outputs": {
     "VPC": {
       "Description": "VPC",
