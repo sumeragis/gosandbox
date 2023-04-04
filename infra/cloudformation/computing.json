@@ -23,7 +23,7 @@
             "DeviceIndex": 0,
             "GroupSet": [
               {
-                "Ref": "SecurityGroupEC2"
+                "Fn::ImportValue": "SecurityGroupEC2"
               }
             ]
           }
