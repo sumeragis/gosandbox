@@ -328,7 +328,8 @@
           "Arn": { "Ref": "Ec2Bastion" },
           "RoleArn": "arn:aws:iam::194049872315:role/EventScheduler-EC2StopRole"
         }
-      }
+      },
+      "DependsOn": ["Ec2Bastion"]
     }
   }
 }
