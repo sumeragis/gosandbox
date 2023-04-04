@@ -1,5 +1,71 @@
 {
-  "Description": "Network",
+  "Description": "Computing",
   "Parameters": {},
-  "Resources": {}
+  "Outputs": {
+    "SecurityGroupEC2": {
+      "Description": "SecurityGroup Bastion",
+      "Value": { "Ref": "SecurityGroupEC2" },
+      "Export": {
+        "Name": "SecurityGroupEC2"
+      }
+    }
+  },
+  "Resources": {
+    "Ec2Bastion": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "ImageId": "ami-02a2700d37baeef8b",
+        "KeyName": "keypair-sandbox",
+        "InstanceType": "t2.micro",
+        "BlockDeviceMappings": [
+          {
+            "DeviceName": "/dev/sdc",
+            "VirtualName": "ephemeral0"
+          }
+        ],
+        "NetworkInterfaces": [
+          {
+            "SubnetId": {
+              "Ref": "PublicSubnetA"
+            },
+            "DeviceIndex": 0,
+            "GroupSet": [
+              {
+                "Ref": "SecurityGroupEC2"
+              }
+            ]
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "tBastion"
+          }
+        ]
+      }
+    },
+    "SecurityGroupEC2": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VPC"
+        },
+        "GroupDescription": "security group for bastion",
+        "SecurityGroupIngress": [
+          {
+            "IpProtocol": "tcp",
+            "FromPort": 22,
+            "ToPort": 22,
+            "CidrIp": { "Ref": "MyIP" }
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "tSecurityGroupEC2"
+          }
+        ]
+      }
+    }
+  }
 }

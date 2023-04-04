@@ -15,6 +15,15 @@
         }
       }
     },
+    "Computing": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": {
+          "Fn::Join": ["", [{ "Ref": "TemplateURL" }, "computing.json"]]
+        }
+      },
+      "DependsOn": "Network"
+    },
     "Database": {
       "Type": "AWS::CloudFormation::Stack",
       "Properties": {
