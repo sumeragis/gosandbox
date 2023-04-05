@@ -325,7 +325,7 @@
         "Name": "tStopEC2Bastion",
         "ScheduleExpression": "0 0 0 * ? *",
         "Target": {
-          "Arn": { "Ref": "Ec2Bastion" },
+          "Arn": { "Fn::GetAtt": ["Ec2Bastion", "Arn"] },
           "RoleArn": "arn:aws:iam::194049872315:role/EventScheduler-EC2StopRole"
         }
       },
