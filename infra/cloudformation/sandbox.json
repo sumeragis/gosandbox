@@ -376,14 +376,17 @@
         },
         "Policies": [
           {
-            "Version": "2012-10-17",
-            "Statement": [
-              {
-                "Effect": "Allow",
-                "Action": "ec2:StopInstances",
-                "Resource": "*"
-              }
-            ]
+            "PolicyName": "tEC2StopPolicy",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": "ec2:StopInstances",
+                  "Resource": "*"
+                }
+              ]
+            }
           }
         ]
       }
@@ -406,14 +409,17 @@
         },
         "Policies": [
           {
-            "Version": "2012-10-17",
-            "Statement": [
-              {
-                "Effect": "Allow",
-                "Action": "rds:StopDBInstance",
-                "Resource": "*"
-              }
-            ]
+            "PolicyName": "tRDSStopPolicy",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": "rds:StopDBInstance",
+                  "Resource": "*"
+                }
+              ]
+            }
           }
         ]
       }
