@@ -9,42 +9,54 @@
   "Outputs": {
     "VPC": {
       "Description": "VPC",
-      "Value": { "Ref": "VPC" },
+      "Value": {
+        "Ref": "VPC"
+      },
       "Export": {
         "Name": "VPC"
       }
     },
     "PublicSubnetA": {
       "Description": "PublicSubnetA",
-      "Value": { "Ref": "PublicSubnetA" },
+      "Value": {
+        "Ref": "PublicSubnetA"
+      },
       "Export": {
         "Name": "PublicSubnetA"
       }
     },
     "PublicSubnetC": {
       "Description": "PublicSubnetC",
-      "Value": { "Ref": "PublicSubnetC" },
+      "Value": {
+        "Ref": "PublicSubnetC"
+      },
       "Export": {
         "Name": "PublicSubnetC"
       }
     },
     "PrivateSubnetA": {
       "Description": "PrivateSubnetA",
-      "Value": { "Ref": "PrivateSubnetA" },
+      "Value": {
+        "Ref": "PrivateSubnetA"
+      },
       "Export": {
         "Name": "PrivateSubnetA"
       }
     },
     "PrivateSubnetC": {
       "Description": "PrivateSubnetC",
-      "Value": { "Ref": "PrivateSubnetC" },
+      "Value": {
+        "Ref": "PrivateSubnetC"
+      },
       "Export": {
         "Name": "PrivateSubnetC"
       }
     },
     "SecurityGroupEC2": {
       "Description": "SecurityGroup Bastion",
-      "Value": { "Ref": "SecurityGroupEC2" },
+      "Value": {
+        "Ref": "SecurityGroupEC2"
+      },
       "Export": {
         "Name": "SecurityGroupEC2"
       }
@@ -193,7 +205,14 @@
         "Name": "tLoadBalancer",
         "Scheme": "internal",
         "SecurityGroups": [],
-        "Subnets": [{ "Ref": "PublicSubnetA" }, { "Ref": "PublicSubnetC" }],
+        "Subnets": [
+          {
+            "Ref": "PublicSubnetA"
+          },
+          {
+            "Ref": "PublicSubnetC"
+          }
+        ],
         "Tags": [
           {
             "Key": "Name",
@@ -214,7 +233,9 @@
             "IpProtocol": "tcp",
             "FromPort": 22,
             "ToPort": 22,
-            "CidrIp": { "Ref": "MyIP" }
+            "CidrIp": {
+              "Ref": "MyIP"
+            }
           }
         ],
         "Tags": [
@@ -321,11 +342,16 @@
       "Type": "AWS::Scheduler::Schedule",
       "Properties": {
         "Description": "",
-        "FlexibleTimeWindow": { "Mode": "OFF" },
+        "FlexibleTimeWindow": {
+          "Mode": "OFF"
+        },
         "Name": "tStopEC2Bastion",
         "ScheduleExpression": "0 0 0 * ? *",
         "Target": {
-          "Arn": { "Fn::GetAtt": ["Ec2Bastion", "Arn"] },
+          "Arn": "arn:aws:scheduler:::aws-sdk:ec2:stopInstances",
+          "Input": {
+            "Ref": "Ec2Bastion"
+          },
           "RoleArn": "arn:aws:iam::194049872315:role/EventScheduler-EC2StopRole"
         }
       },
