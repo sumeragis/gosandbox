@@ -353,7 +353,9 @@
           "Input": {
             "Fn::Sub": "{\"InstanceIds\": [\"${Ec2Bastion}\"]}"
           },
-          "RoleArn": { "Ref": "RoleEC2Stop" }
+          "RoleArn": {
+            "Fn::GetAtt": ["RoleEC2Stop", "Arn"]
+          }
         }
       },
       "DependsOn": ["Ec2Bastion", "RoleEC2Stop"]
