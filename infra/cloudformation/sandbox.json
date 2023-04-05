@@ -360,6 +360,28 @@
       },
       "DependsOn": ["Ec2Bastion", "RoleEC2Stop"]
     },
+    "SceduleRDSStop": {
+      "Type": "AWS::Scheduler::Schedule",
+      "Properties": {
+        "Description": "",
+        "FlexibleTimeWindow": {
+          "Mode": "OFF"
+        },
+        "Name": "tStopRDSSandbox",
+        "ScheduleExpression": "cron(0 0 * * ? *)",
+        "State": "ENABLED",
+        "Target": {
+          "Arn": "arn:aws:scheduler:::aws-sdk:rds:stopDBInstance",
+          "Input": {
+            "Fn::Sub": "{\"DbInstanceIdentifier\": [\"${RDSDBInstance}\"]}"
+          },
+          "RoleArn": {
+            "Fn::GetAtt": ["RoleRDSStop", "Arn"]
+          }
+        }
+      },
+      "DependsOn": ["RDSDBInstance", "RoleRDSStop"]
+    },
     "RoleEC2Stop": {
       "Type": "AWS::IAM::Role",
       "Properties": {
