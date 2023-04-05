@@ -346,7 +346,7 @@
           "Mode": "OFF"
         },
         "Name": "tStopEC2Bastion",
-        "ScheduleExpression": "0 0 0 * ? *",
+        "ScheduleExpression": "0 0 * * ? *",
         "State": "ENABLED",
         "Target": {
           "Arn": "arn:aws:scheduler:::aws-sdk:ec2:stopInstances",
