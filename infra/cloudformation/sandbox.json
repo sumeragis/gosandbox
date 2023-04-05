@@ -373,7 +373,16 @@
         "Target": {
           "Arn": "arn:aws:scheduler:::aws-sdk:rds:stopDBInstance",
           "Input": {
-            "Fn::Sub": "{\"DbInstanceIdentifier\": [\"${RDSDBInstance}\"]}"
+            "Fn::Sub": "{\"DbInstanceIdentifier\": [\"${RDSDBInstance}\"]}",
+            "Fn::Join": [
+              "",
+              [
+                "{\"DbInstanceIdentifier\": ",
+                "\"",
+                { "Fn::GetAtt": ["RDSDBInstance", "DbInstanceIdentifier"] },
+                "\""
+              ]
+            ]
           },
           "RoleArn": {
             "Fn::GetAtt": ["RoleRDSStop", "Arn"]
