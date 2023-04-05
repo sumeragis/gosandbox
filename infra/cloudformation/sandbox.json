@@ -357,6 +357,36 @@
         }
       },
       "DependsOn": ["Ec2Bastion"]
+    },
+    "RoleEC2Stop": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": "tEventScheduler-EC2StopRole",
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": ["scheduler.amazonaws.com"]
+              },
+              "Action": ["sts:AssumeRole"]
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "Version": "2012-10-17",
+            "Statement": [
+              {
+                "Effect": "Allow",
+                "Action": "ec2:StopInstances",
+                "Resource": "*"
+              }
+            ]
+          }
+        ]
+      }
     }
   }
 }
