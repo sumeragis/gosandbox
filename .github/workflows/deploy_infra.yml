@@ -43,4 +43,4 @@ jobs:
           --stack-name ${STACK_NAME} \
           --template-file ${TEMPLATE_FILE} \
           --no-fail-on-empty-changeset
-          --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM
+          --capabilities CAPABILITY_NAMED_IAM
