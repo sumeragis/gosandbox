@@ -282,7 +282,7 @@
     "RDSDBInstance": {
       "Type": "AWS::RDS::DBInstance",
       "Properties": {
-        "DBInstanceIdentifier": "tSandbox",
+        "DBInstanceIdentifier": "tsandbox",
         "DBSubnetGroupName": {
           "Ref": "DBSubnetGroup"
         },
@@ -375,7 +375,7 @@
           "RoleArn": {
             "Fn::GetAtt": ["RoleRDSStop", "Arn"]
           },
-          "Input": "{\"DbInstanceIdentifier\": \"tSandbox\"}"
+          "Input": "{\"DbInstanceIdentifier\": \"tsandbox\"}"
         }
       },
       "DependsOn": ["RDSDBInstance", "RoleRDSStop"]
