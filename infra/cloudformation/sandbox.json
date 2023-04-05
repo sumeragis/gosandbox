@@ -378,7 +378,7 @@
               [
                 "{\"DbInstanceIdentifier\": ",
                 "\"",
-                { "Fn::GetAtt": ["RDSDBInstance", "DBInstanceIdentifier"] },
+                { "Ref": "RDSDBInstance" },
                 "\""
               ]
             ]
