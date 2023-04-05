@@ -356,7 +356,7 @@
           "RoleArn": { "Ref": "RoleEC2Stop" }
         }
       },
-      "DependsOn": ["Ec2Bastion"]
+      "DependsOn": ["Ec2Bastion", "RoleEC2Stop"]
     },
     "RoleEC2Stop": {
       "Type": "AWS::IAM::Role",
