@@ -361,7 +361,6 @@
     "RoleEC2Stop": {
       "Type": "AWS::IAM::Role",
       "Properties": {
-        "RoleName": "tEventScheduler-EC2StopRole",
         "AssumeRolePolicyDocument": {
           "Version": "2012-10-17",
           "Statement": [
