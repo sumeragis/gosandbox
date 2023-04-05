@@ -351,7 +351,7 @@
         "Target": {
           "Arn": "arn:aws:scheduler:::aws-sdk:ec2:stopInstances",
           "Input": {
-            "Fn::Sub": "{\"InstanceIds\": [\"{\"Ref\": \"Ec2Bastion\"}\"]}"
+            "Fn::Sub": "{\"InstanceIds\": [{\"Ref\": \"Ec2Bastion\"}]}"
           },
           "RoleArn": "arn:aws:iam::194049872315:role/EventScheduler-EC2StopRole"
         }
