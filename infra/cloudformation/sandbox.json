@@ -373,13 +373,12 @@
         "Target": {
           "Arn": "arn:aws:scheduler:::aws-sdk:rds:stopDBInstance",
           "Input": {
-            "Fn::Sub": "{\"DbInstanceIdentifier\": [\"${RDSDBInstance}\"]}",
             "Fn::Join": [
               "",
               [
                 "{\"DbInstanceIdentifier\": ",
                 "\"",
-                { "Fn::GetAtt": ["RDSDBInstance", "DbInstanceIdentifier"] },
+                { "Fn::GetAtt": ["RDSDBInstance", "DBInstanceIdentifier"] },
                 "\""
               ]
             ]
