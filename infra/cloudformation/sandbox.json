@@ -353,7 +353,7 @@
           "Input": {
             "Fn::Sub": "{\"InstanceIds\": [\"${Ec2Bastion}\"]}"
           },
-          "RoleArn": "arn:aws:iam::194049872315:role/EventScheduler-EC2StopRole"
+          "RoleArn": { "Ref": "RoleEC2Stop" }
         }
       },
       "DependsOn": ["Ec2Bastion"]
