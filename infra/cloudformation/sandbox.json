@@ -372,12 +372,10 @@
         "State": "ENABLED",
         "Target": {
           "Arn": "arn:aws:scheduler:::aws-sdk:rds:stopDBInstance",
-          "Input": {
-            "DbInstanceIdentifier": "tSandbox"
-          },
           "RoleArn": {
             "Fn::GetAtt": ["RoleRDSStop", "Arn"]
-          }
+          },
+          "Input": "{\"DbInstanceIdentifier\": \"tSandbox\"}"
         }
       },
       "DependsOn": ["RDSDBInstance", "RoleRDSStop"]
