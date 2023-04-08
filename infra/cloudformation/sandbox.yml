@@ -1,0 +1,265 @@
+Description: Sandbox
+Parameters:
+  MyIP:
+    Type: String
+    Default: 133.200.151.128/32
+Outputs:
+  VPC:
+    Description: VPC
+    Value: !Ref VPC
+    Export:
+      Name: VPC
+  PublicSubnetA:
+    Description: PublicSubnetA
+    Value: !Ref PublicSubnetA
+    Export:
+      Name: PublicSubnetA
+  PublicSubnetC:
+    Description: PublicSubnetC
+    Value: !Ref PublicSubnetC
+    Export:
+      Name: PublicSubnetC
+  PrivateSubnetA:
+    Description: PrivateSubnetA
+    Value: !Ref PrivateSubnetA
+    Export:
+      Name: PrivateSubnetA
+  PrivateSubnetC:
+    Description: PrivateSubnetC
+    Value: !Ref PrivateSubnetC
+    Export:
+      Name: PrivateSubnetC
+  SecurityGroupEC2:
+    Description: SecurityGroup Bastion
+    Value: !Ref SecurityGroupEC2
+    Export:
+      Name: SecurityGroupEC2
+Resources:
+  VPC:
+    Type: "AWS::EC2::VPC"
+    Properties:
+      CidrBlock: 10.10.0.0/16
+      EnableDnsSupport: "true"
+      EnableDnsHostnames: "true"
+      Tags:
+        - Key: Name
+          Value: tVPC
+  PublicSubnetA:
+    Type: "AWS::EC2::Subnet"
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: 10.10.1.0/24
+      AvailabilityZoneId: apne1-az4
+      Tags:
+        - Key: Name
+          Value: tPublicSubnet-1a
+  PublicSubnetC:
+    Type: "AWS::EC2::Subnet"
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: 10.10.2.0/24
+      AvailabilityZoneId: apne1-az1
+      Tags:
+        - Key: Name
+          Value: tPublicSubnet-1c
+  PrivateSubnetA:
+    Type: "AWS::EC2::Subnet"
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: 10.10.3.0/24
+      AvailabilityZoneId: apne1-az4
+      Tags:
+        - Key: Name
+          Value: tPrivateSubnet-1a
+  PrivateSubnetC:
+    Type: "AWS::EC2::Subnet"
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: 10.10.4.0/24
+      AvailabilityZoneId: apne1-az1
+      Tags:
+        - Key: Name
+          Value: tPrivateSubnet-1c
+  InternetGateway:
+    Type: "AWS::EC2::InternetGateway"
+    Properties: {}
+  RouteTablePublicSubnet:
+    Type: "AWS::EC2::RouteTable"
+    Properties:
+      VpcId: !Ref VPC
+  RoutePublicInternetGateway:
+    Type: "AWS::EC2::Route"
+    Properties:
+      RouteTableId: !Ref RouteTablePublicSubnet
+      GatewayId: !Ref InternetGateway
+      DestinationCidrBlock: 0.0.0.0/0
+    DependsOn:
+      - VPC
+  VPCGatewayAttachment:
+    Type: "AWS::EC2::VPCGatewayAttachment"
+    Properties:
+      VpcId: !Ref VPC
+      InternetGatewayId: !Ref InternetGateway
+  SubnetRouteTableAssociationPublicA:
+    Type: "AWS::EC2::SubnetRouteTableAssociation"
+    Properties:
+      SubnetId: !Ref PublicSubnetA
+      RouteTableId: !Ref RouteTablePublicSubnet
+  SubnetRouteTableAssociationPublicC:
+    Type: "AWS::EC2::SubnetRouteTableAssociation"
+    Properties:
+      SubnetId: !Ref PublicSubnetC
+      RouteTableId: !Ref RouteTablePublicSubnet
+  ALB:
+    Type: "AWS::ElasticLoadBalancingV2::LoadBalancer"
+    Properties:
+      Name: tLoadBalancer
+      Scheme: internal
+      SecurityGroups: []
+      Subnets:
+        - !Ref PublicSubnetA
+        - !Ref PublicSubnetC
+      Tags:
+        - Key: Name
+          Value: tALB
+  SecurityGroupEC2:
+    Type: "AWS::EC2::SecurityGroup"
+    Properties:
+      VpcId: !Ref VPC
+      GroupDescription: security group for bastion
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: !Ref MyIP
+      Tags:
+        - Key: Name
+          Value: tSecurityGroupEC2
+  Ec2Bastion:
+    Type: "AWS::EC2::Instance"
+    Properties:
+      ImageId: ami-02a2700d37baeef8b
+      KeyName: keypair-sandbox
+      InstanceType: t2.micro
+      BlockDeviceMappings:
+        - DeviceName: /dev/sdc
+          VirtualName: ephemeral0
+      NetworkInterfaces:
+        - SubnetId: !Ref PublicSubnetA
+          DeviceIndex: 0
+          GroupSet:
+            - !Ref SecurityGroupEC2
+      Tags:
+        - Key: Name
+          Value: tBastion
+  RDSDBInstance:
+    Type: "AWS::RDS::DBInstance"
+    Properties:
+      DBInstanceIdentifier: tsandbox
+      DBSubnetGroupName: !Ref DBSubnetGroup
+      Engine: mysql
+      MasterUsername: admin
+      MasterUserPassword: hkaneko1
+      PubliclyAccessible: "true"
+      DBInstanceClass: db.t2.micro
+      StorageType: gp2
+      MultiAZ: false
+      AllocatedStorage: 5
+      DBSecurityGroups:
+        - !Ref SecurityGroupRDS
+      DeletionProtection: true
+  SecurityGroupRDS:
+    Type: "AWS::RDS::DBSecurityGroup"
+    Properties:
+      GroupDescription: SecurityGroup RDS
+      EC2VpcId: !Ref VPC
+      DBSecurityGroupIngress:
+        - EC2SecurityGroupId: !Ref SecurityGroupEC2
+      Tags:
+        - Key: Name
+          Value: tSecurityGroupRDS
+  DBSubnetGroup:
+    Type: "AWS::RDS::DBSubnetGroup"
+    Properties:
+      DBSubnetGroupDescription: RDS SubnetGroup
+      SubnetIds:
+        - !Ref PrivateSubnetA
+        - !Ref PrivateSubnetC
+  SceduleEC2Stop:
+    Type: "AWS::Scheduler::Schedule"
+    Properties:
+      Description: ""
+      FlexibleTimeWindow:
+        Mode: "OFF"
+      Name: tStopEC2Bastion
+      ScheduleExpression: cron(0 0 * * ? *)
+      State: ENABLED
+      Target:
+        Arn: "arn:aws:scheduler:::aws-sdk:ec2:stopInstances"
+        Input: !Sub '{"InstanceIds": ["${Ec2Bastion}"]}'
+        RoleArn: !GetAtt
+          - RoleEC2Stop
+          - Arn
+    DependsOn:
+      - Ec2Bastion
+      - RoleEC2Stop
+  SceduleRDSStop:
+    Type: "AWS::Scheduler::Schedule"
+    Properties:
+      Description: ""
+      FlexibleTimeWindow:
+        Mode: "OFF"
+      Name: tStopRDSSandbox
+      ScheduleExpression: cron(0 0 * * ? *)
+      State: ENABLED
+      Target:
+        Arn: "arn:aws:scheduler:::aws-sdk:rds:stopDBInstance"
+        RoleArn: !GetAtt
+          - RoleRDSStop
+          - Arn
+        Input: '{"DbInstanceIdentifier": "tsandbox"}'
+    DependsOn:
+      - RDSDBInstance
+      - RoleRDSStop
+  RoleEC2Stop:
+    Type: "AWS::IAM::Role"
+    Properties:
+      RoleName: tEventScheduler-EC2StopRole
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - scheduler.amazonaws.com
+            Action:
+              - "sts:AssumeRole"
+      Policies:
+        - PolicyName: tEC2StopPolicy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action: "ec2:StopInstances"
+                Resource: "*"
+  RoleRDSStop:
+    Type: "AWS::IAM::Role"
+    Properties:
+      RoleName: tEventScheduler-RDSStopRole
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - scheduler.amazonaws.com
+            Action:
+              - "sts:AssumeRole"
+      Policies:
+        - PolicyName: tRDSStopPolicy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action: "rds:StopDBInstance"
+                Resource: "*"

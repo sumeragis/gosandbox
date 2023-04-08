@@ -37,7 +37,7 @@ jobs:
       - name: deploy
         env:
           STACK_NAME: tsandbox
-          TEMPLATE_FILE: ./infra/cloudformation/sandbox.json
+          TEMPLATE_FILE: ./infra/cloudformation/sandbox.yml
         run: |
           aws cloudformation deploy \
           --stack-name ${STACK_NAME} \
