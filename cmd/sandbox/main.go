@@ -1,8 +1,6 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
 	"net/http"
 	"os"
 
@@ -46,19 +44,4 @@ func run() int {
 	logger.Log.Sugar().Info("shut down...")
 
 	return 0
-}
-
-func hander() http.HandlerFunc{
-  return func(res http.ResponseWriter, req *http.Request) {
-	b, err := json.Marshal("ok")
-	if err != nil {
-		fmt.Printf("json marshal err=%s", err.Error())
-		return 
-	}
-
-	if _, err := res.Write(b); err != nil {
-		fmt.Printf("write res err=%s", err.Error())
-		return
-	}
-  }
 }

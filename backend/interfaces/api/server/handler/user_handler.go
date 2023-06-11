@@ -30,6 +30,7 @@ func NewUserHandler(db *sqlx.DB) *userHandler {
 
 func (h *userHandler) Router() chi.Router {
 	r := chi.NewRouter()
+	r.Get("/", middlewareBundle(h.List()))
 	r.Get("/{id}", middlewareBundle(h.Get()))
 	r.Post("/", middlewareBundle(h.Create()))
 	r.Patch("/", middlewareBundle(h.Update()))
@@ -57,6 +58,33 @@ func errorHandler(status int, err error, w http.ResponseWriter) {
 	}
 
 	w.WriteHeader(status)
+}
+
+
+func (h *userHandler) List() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		ctx := context.Background()
+		var status int
+		var resErr error
+		defer func() {
+			errorHandler(status, resErr, w)
+		}()
+
+		users, err := h.useCase.List(ctx)
+		if err != nil {
+			status = http.StatusInternalServerError
+			resErr = fmt.Errorf("failed to List err=%s", err.Error())
+			return
+		}
+
+		res := &ListUserResponse{users}
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
+		if err := json.NewEncoder(w).Encode(res); err != nil {
+			status = http.StatusInternalServerError
+			resErr = fmt.Errorf("failed to Encode response err=%w", err)
+			return
+		}
+	}
 }
 
 func (h *userHandler) Get() http.HandlerFunc {

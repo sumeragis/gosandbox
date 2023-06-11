@@ -9,6 +9,7 @@ import (
 )
 
 type UserUseCase interface {
+	List(ctx context.Context) ([]*entity.User, error)
 	Get(ctx context.Context, id int) (*entity.User, error)
 	Create(ctx context.Context, entity *entity.User) error
 	Update(ctx context.Context, entity *entity.User) error
@@ -23,6 +24,14 @@ func NewUserUseCase(userRepository repository.UserRepository) UserUseCase {
 	return &userUseCase{
 		userRepository: userRepository,
 	}
+}
+
+func (u *userUseCase) List(ctx context.Context) ([]*entity.User, error) {
+	users, err := u.userRepository.Find(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return users, nil
 }
 
 func (u *userUseCase) Get(ctx context.Context, id int) (*entity.User, error) {
