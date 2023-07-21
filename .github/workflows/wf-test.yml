@@ -1,0 +1,19 @@
+name: wf-test
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: output job url
+        env:
+          WORKFLOW_URL: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/run/$GITHUB_RUN_ID
+          WORKFLOW_URL2: ${{ env.GITHUB_SERVER_URL }}/${{ env.GITHUB_REPOSITORY }}/actions/run/${{ env.GITHUB_RUN_ID }}
+        run: |
+          echo WORKFLOW_URL=$WORKFLOW_URL
+          echo WORKFLOW_URL=$WORKFLOW_URL2
+          echo WORKFLOW_URL=${{ env.WORKFLOW_URL }}
+          echo WORKFLOW_URL=${{ env.WORKFLOW_URL2 }}
